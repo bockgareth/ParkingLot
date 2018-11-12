@@ -8,4 +8,5 @@ public interface TicketDao {
     public int getTicketCount();
     public TicketEntity getTicketById(int id);
     public List<TicketEntity> getAllTickets();
+    public void createTicket(TicketEntity ticket);
 }
