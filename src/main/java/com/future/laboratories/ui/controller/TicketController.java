@@ -14,24 +14,33 @@ public class TicketController {
     TicketService ticketService = new TicketServiceImpl();
 
     @GET
-    @Path("/tickets/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public TicketDto getTicketById(@PathParam("id") int id) {
-        return ticketService.getTicketById(id);
-    }
-
-    @GET
     @Path("/tickets")
     @Produces(MediaType.APPLICATION_JSON)
     public List<TicketDto> getAllTickets() {
         return ticketService.getAllTickets();
     }
 
+    @GET
+    @Path("/tickets/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public TicketDto getTicketById(@PathParam("id") int id) {
+        return ticketService.getTicketById(id);
+    }
+
     @POST
     @Path("/tickets")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public TicketDto createUser(TicketDto ticket) {
+    public TicketDto createTicket(TicketDto ticket) {
         return ticketService.createTicket(ticket);
     }
+
+    @POST
+    @Path("/tickets/{id}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public TicketDto updateTicket() {
+        return null;
+    }
+
 }
