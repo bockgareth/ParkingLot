@@ -14,7 +14,6 @@ import java.util.List;
 
 public class TicketServiceImpl implements TicketService {
 
-
     ApplicationContext ctx = new ClassPathXmlApplicationContext("databaseContext.xml");
     TicketDao ticketDao = ctx.getBean("ticketDao", TicketDaoImpl.class);
 
@@ -37,6 +36,19 @@ public class TicketServiceImpl implements TicketService {
             BeanUtils.copyProperties(ticketEntity, ticketDto);
             returnValue.add(ticketDto);
         }
+
+        return returnValue;
+    }
+
+
+    public TicketDto createTicket(TicketDto ticket) {
+        TicketEntity ticketEntity = new TicketEntity();
+        BeanUtils.copyProperties(ticket, ticketEntity);
+
+        ticketDao.createTicket(ticketEntity);
+
+        TicketDto returnValue = new TicketDto();
+        BeanUtils.copyProperties(ticketEntity, returnValue);
 
         return returnValue;
     }
