@@ -35,12 +35,12 @@ public class TicketController {
         return ticketService.createTicket(ticket);
     }
 
-    @POST
+    @PUT
     @Path("/tickets/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public TicketDto updateTicket() {
-        return null;
+    public TicketDto updateTicket(@PathParam("id") int id, TicketDto ticket) {
+        return ticketService.updateTicket(id, ticket);
     }
 
 }
