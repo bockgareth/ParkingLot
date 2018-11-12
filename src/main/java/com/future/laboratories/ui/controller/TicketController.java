@@ -4,10 +4,7 @@ import com.future.laboratories.service.TicketService;
 import com.future.laboratories.service.impl.TicketServiceImpl;
 import com.future.laboratories.shared.dto.TicketDto;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 
@@ -28,5 +25,13 @@ public class TicketController {
     @Produces(MediaType.APPLICATION_JSON)
     public List<TicketDto> getAllTickets() {
         return ticketService.getAllTickets();
+    }
+
+    @POST
+    @Path("/tickets")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public TicketDto createUser(TicketDto ticket) {
+        return ticketService.createTicket(ticket);
     }
 }
