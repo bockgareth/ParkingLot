@@ -8,4 +8,5 @@ public interface TicketService {
     public TicketDto getTicketById(int id);
     public List<TicketDto> getAllTickets();
     public TicketDto createTicket(TicketDto ticket);
+    public TicketDto updateTicket(int id, TicketDto ticket);
 }
