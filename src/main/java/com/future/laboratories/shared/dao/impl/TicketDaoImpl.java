@@ -7,12 +7,18 @@ import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 public class TicketDaoImpl extends JdbcDaoSupport implements TicketDao {
 
     public TicketEntity getTicketById(int id) {
         String sql = "select * from ticket where ticket_id = ?";
         return this.getJdbcTemplate().queryForObject(sql, new Object[] {id}, new TicketMapper());
+    }
+
+    public List<TicketEntity> getAllTickets() {
+        String sql = "select * from ticket";
+        return this.getJdbcTemplate().query(sql, new TicketMapper());
     }
 
     public int getTicketCount() {
