@@ -9,6 +9,9 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TicketServiceImpl implements TicketService {
 
 
@@ -20,6 +23,20 @@ public class TicketServiceImpl implements TicketService {
 
         TicketDto returnValue = new TicketDto();
         BeanUtils.copyProperties(ticket, returnValue);
+
+        return returnValue;
+    }
+
+    public List<TicketDto> getAllTickets() {
+        List<TicketDto> returnValue = new ArrayList<>();
+
+        List<TicketEntity> tickets = ticketDao.getAllTickets();
+
+        for (TicketEntity ticketEntity: tickets) {
+            TicketDto ticketDto = new TicketDto();
+            BeanUtils.copyProperties(ticketEntity, ticketDto);
+            returnValue.add(ticketDto);
+        }
 
         return returnValue;
     }
