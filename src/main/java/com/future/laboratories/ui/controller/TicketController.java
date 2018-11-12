@@ -9,6 +9,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import java.util.List;
 
 @Path("/")
 public class TicketController {
@@ -20,5 +21,12 @@ public class TicketController {
     @Produces(MediaType.APPLICATION_JSON)
     public TicketDto getTicketById(@PathParam("id") int id) {
         return ticketService.getTicketById(id);
+    }
+
+    @GET
+    @Path("/tickets")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<TicketDto> getAllTickets() {
+        return ticketService.getAllTickets();
     }
 }
