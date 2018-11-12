@@ -9,4 +9,5 @@ public interface TicketDao {
     public TicketEntity getTicketById(int id);
     public List<TicketEntity> getAllTickets();
     public void createTicket(TicketEntity ticket);
+    public void updateTicket(TicketEntity ticket);
 }

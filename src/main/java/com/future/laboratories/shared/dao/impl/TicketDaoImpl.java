@@ -31,6 +31,11 @@ public class TicketDaoImpl extends JdbcDaoSupport implements TicketDao {
         this.getJdbcTemplate().update(sql, new Object[] {ticket.getTicketId(), ticket.getTicketDate(), ticket.getEnterTime(), ticket.getExitTime()});
     }
 
+    public void updateTicket(TicketEntity ticket) {
+        String sql = "update ticket set ticket_exit_time = ?, is_ticket_lost = ?, amount_due = ?, where id = ?";
+        this.getJdbcTemplate().update(sql, new Object[] {ticket.getExitTime(), ticket.isTicketLost(), ticket.getAmountDue()});
+    }
+
     private static final class TicketMapper implements RowMapper<TicketEntity> {
 
         @Override
