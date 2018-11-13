@@ -33,4 +33,11 @@ public class ReportController {
         return reportService.getLostTicketCount(month, day);
     }
 
+    @GET
+    @Path("/reports/{month}/{day}/mode")
+    @Produces(MediaType.APPLICATION_JSON)
+    public ReportDto getAmountDueMode(@PathParam("month") int month, @PathParam("day") int day) {
+        return reportService.getAmountDueMode(month, day);
+    }
+
 }
