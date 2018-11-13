@@ -52,6 +52,26 @@ public class ReportServiceImpl implements ReportService {
         return returnValue;
     }
 
+    public ReportDto getLostTicketCount(int month, int day) {
+        ReportDto returnValue = new ReportDto();
+
+        List<TicketEntity> tickets = ticketDao.getAllTickets();
+
+        int lostTicketCount = 0;
+
+        for (TicketEntity ticket: tickets) {
+            if (ticket.getTicketDate().getMonth().getValue() == month && ticket.getTicketDate().getDayOfMonth() == day) {
+                if (ticket.isTicketLost()) {
+                    lostTicketCount++;
+                }
+            }
+        }
+
+        returnValue.setLost(lostTicketCount);
+
+        return returnValue;
+    }
+
     public int reduce(List<Integer> values) {
         int sum = 0;
         for (int value: values) {
