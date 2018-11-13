@@ -9,33 +9,56 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * This class acts as the ticket data access object that generic
+ * crud operations for ticket related queries.
+ */
 public class TicketDaoImpl extends JdbcDaoSupport implements TicketDao {
 
+    /**
+     * Used to retrieve a single TicketEntity object based on its id.
+     * @param id the id of a ticket that will be requested.
+     * @return a TicketEntity that has been mapped to a Java object
+     * from a SQL result set.
+     */
     public TicketEntity getTicketById(int id) {
         String sql = "select * from ticket where ticket_id = ?";
         return this.getJdbcTemplate().queryForObject(sql, new Object[] {id}, new TicketMapper());
     }
 
+    /**
+     * Used to retrieve a TicketEntity List<E>.
+     * @return TicketEntity List<E> that has been mapped to a List<E>
+     * from a SQL result set.
+     */
     public List<TicketEntity> getAllTickets() {
         String sql = "select * from ticket";
         return this.getJdbcTemplate().query(sql, new TicketMapper());
     }
 
-    public int getTicketCount() {
-        String sql = "select count(*) from ticket";
-        return this.getJdbcTemplate().queryForObject(sql, Integer.class);
-    }
-
+    /**
+     * Used to persist a TicketEntity to a database.
+     * @param ticket a TicketEntity to be mapped to sql and inserted.
+     */
     public void createTicket(TicketEntity ticket) {
         String sql = "insert into ticket (ticket_id, ticket_date, ticket_enter_time, ticket_exit_time) values (?, ?, ?, ?)";
         this.getJdbcTemplate().update(sql, new Object[] {ticket.getTicketId(), ticket.getTicketDate(), ticket.getEnterTime(), ticket.getExitTime()});
     }
 
+    /**
+     * Used to update a ticket was it is closed. Update statement
+     * is made to a database.
+     * @param ticket a TicketEntity to be mapped to sql and updated.
+     */
     public void updateTicket(TicketEntity ticket) {
         String sql = "update ticket set ticket_exit_time = ?, is_ticket_lost = ?, amount_due = ? where id = ?";
         this.getJdbcTemplate().update(sql, new Object[] {ticket.getExitTime(), ticket.isTicketLost(), ticket.getAmountDue(), ticket.getTicketId()});
     }
 
+    /**
+     * This inner class acts as a mapper between SQL result sets
+     * and Java objects.
+     */
     private static final class TicketMapper implements RowMapper<TicketEntity> {
 
         @Override
