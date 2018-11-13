@@ -19,4 +19,11 @@ public class ReportController {
         return reportService.getReportByMonth(month);
     }
 
+    @GET
+    @Path("/reports/{month}/{day}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public ReportDto getReportByDay(@PathParam("month") int month, @PathParam("day") int day) {
+        return reportService.getReportByDay(month, day);
+    }
+
 }
