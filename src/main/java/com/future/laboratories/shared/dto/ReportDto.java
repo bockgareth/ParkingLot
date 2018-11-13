@@ -1,5 +1,9 @@
 package com.future.laboratories.shared.dto;
 
+/**
+ * This class acts as a Report data transfer object. Has
+ * no communication with data layer.
+ */
 public class ReportDto {
 
     private int month;

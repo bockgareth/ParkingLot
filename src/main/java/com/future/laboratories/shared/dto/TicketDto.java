@@ -3,6 +3,10 @@ package com.future.laboratories.shared.dto;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+/**
+ * This class acts as a Ticket data transfer object. Has
+ * no communication with data layer.
+ */
 public class TicketDto {
 
     private int id;
