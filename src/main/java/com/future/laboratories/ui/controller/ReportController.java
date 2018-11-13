@@ -7,11 +7,24 @@ import com.future.laboratories.shared.dto.ReportDto;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
+/**
+ * This class acts as the report controller that hosts HTTP endpoints
+ * for report related queries.
+ */
 @Path("/")
 public class ReportController {
 
+    /**
+     * com.future.laboratories.service.impl.ReportServiceImpl to be injected.
+     */
     ReportService reportService = new ReportServiceImpl();
 
+    /**
+     * GET (on 200 OK) request to retrieve a report summary for the specified
+     * month.
+     * @param month the month for the report to be generated on.
+     * @return a ReportDto as a response, output declared as json.
+     */
     @GET
     @Path("/reports/{month}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -19,6 +32,13 @@ public class ReportController {
         return reportService.getReportByMonth(month);
     }
 
+    /**
+     * GET (on 200 OK) request to retrieve a report summary for the specified
+     * month and day.
+     * @param month the month for the report to be generated on.
+     * @param day the day for the report to be generated on.
+     * @return a ReportDto as a response, output declared as json.
+     */
     @GET
     @Path("/reports/{month}/{day}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -26,6 +46,13 @@ public class ReportController {
         return reportService.getReportByDay(month, day);
     }
 
+    /**
+     * GET (on 200 OK) request to retrieve a report summary on how many
+     * tickets were lost for the specified month and day.
+     * @param month the month for the report to be generated on.
+     * @param day the day for the report to be generated on.
+     * @return a ReportDto as a response, output declared as json.
+     */
     @GET
     @Path("/reports/{month}/{day}/lost")
     @Produces(MediaType.APPLICATION_JSON)
@@ -33,6 +60,14 @@ public class ReportController {
         return reportService.getLostTicketCount(month, day);
     }
 
+    /**
+     * GET (on 200 OK) request to retrieve a report summary with the mode
+     * of payments due for the specified month and day.
+     * @param month the month for the report to be generated on.
+     * @param day the day for the report to be generated on.
+     * @return a ReportDto as a response, output declared as json. Only supports
+     * one mode. If there are mode conflicts, response will result in a 0.
+     */
     @GET
     @Path("/reports/{month}/{day}/mode")
     @Produces(MediaType.APPLICATION_JSON)
