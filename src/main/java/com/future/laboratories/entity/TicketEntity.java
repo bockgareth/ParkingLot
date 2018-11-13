@@ -3,6 +3,11 @@ package com.future.laboratories.entity;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+/**
+ * This class acts as a Ticket entity object. To be converted to
+ * a Ticket dto and has no communication with presentation layer and
+ * server layer.
+ */
 public class TicketEntity {
 
     private int id;
