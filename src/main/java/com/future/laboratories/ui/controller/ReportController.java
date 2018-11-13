@@ -26,4 +26,11 @@ public class ReportController {
         return reportService.getReportByDay(month, day);
     }
 
+    @GET
+    @Path("/reports/{month}/{day}/lost")
+    @Produces(MediaType.APPLICATION_JSON)
+    public ReportDto getLostTicketCount(@PathParam("month") int month, @PathParam("day") int day) {
+        return reportService.getLostTicketCount(month, day);
+    }
+
 }
