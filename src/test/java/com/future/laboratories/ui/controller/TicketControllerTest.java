@@ -2,7 +2,10 @@ package com.future.laboratories.ui.controller;
 
 import com.future.laboratories.service.impl.TicketServiceImpl;
 import com.future.laboratories.shared.dto.TicketDto;
+import com.future.laboratories.ui.model.request.ticket.UpdateTicketRequestModel;
+import com.future.laboratories.ui.model.response.ticket.CreatedTicketResponseModel;
 import com.future.laboratories.ui.model.response.ticket.TicketResponseModel;
+import com.future.laboratories.ui.model.response.ticket.UpdatedTicketResponseModel;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -11,7 +14,6 @@ import org.mockito.MockitoAnnotations;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -29,6 +31,7 @@ public class TicketControllerTest {
     TicketServiceImpl ticketService;
 
     TicketDto ticketDto;
+    UpdateTicketRequestModel updateModel;
 
     final int TICKET_ID = 1;
 
@@ -43,6 +46,11 @@ public class TicketControllerTest {
         ticketDto.setExitTime(LocalTime.of(11, 30));
         ticketDto.setTicketLost(false);
         ticketDto.setAmountDue(20);
+
+        updateModel = new UpdateTicketRequestModel();
+        updateModel.setExitTime(LocalTime.of(12, 30));
+        updateModel.setTicketLost(false);
+
     }
 
     @Test
@@ -72,21 +80,19 @@ public class TicketControllerTest {
 
     @Test
     public void testCreateTicket() {
-        when(ticketService.createTicket(anyObject())).thenReturn(ticketDto);
+        when(ticketService.createTicket()).thenReturn(ticketDto);
 
-        TicketDto ticketRest = ticketController.createTicket(ticketDto);
+        CreatedTicketResponseModel ticketRest = ticketController.createTicket();
 
         assertNotNull(ticketRest);
         assertEquals(ticketDto.getEnterTime(), ticketRest.getEnterTime());
-        assertEquals(ticketDto.getExitTime(), ticketRest.getExitTime());
-        assertEquals(ticketDto.getAmountDue(), ticketRest.getAmountDue());
     }
 
     @Test
     public void testUpdateTicket() {
-        when(ticketService.updateTicket(anyInt(), anyObject())).thenReturn(ticketDto);
+        when(ticketService.updateTicket(anyObject())).thenReturn(ticketDto);
 
-        TicketDto ticketRest = ticketController.updateTicket(TICKET_ID, ticketDto);
+        UpdatedTicketResponseModel ticketRest = ticketController.updateTicket(TICKET_ID, updateModel);
 
         assertNotNull(ticketRest);
         assertEquals(ticketDto.getEnterTime(), ticketRest.getEnterTime());
