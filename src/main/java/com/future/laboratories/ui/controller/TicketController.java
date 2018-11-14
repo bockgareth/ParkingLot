@@ -3,6 +3,8 @@ package com.future.laboratories.ui.controller;
 import com.future.laboratories.service.TicketService;
 import com.future.laboratories.service.impl.TicketServiceImpl;
 import com.future.laboratories.shared.dto.TicketDto;
+import com.future.laboratories.ui.model.response.ticket.TicketResponseModel;
+import org.springframework.beans.BeanUtils;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -28,6 +30,7 @@ public class TicketController {
     @Path("/tickets")
     @Produces(MediaType.APPLICATION_JSON)
     public List<TicketDto> getAllTickets() {
+
         return ticketService.getAllTickets();
     }
 
@@ -39,8 +42,13 @@ public class TicketController {
     @GET
     @Path("/tickets/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public TicketDto getTicketById(@PathParam("id") int id) {
-        return ticketService.getTicketById(id);
+    public TicketResponseModel getTicketById(@PathParam("id") int id) {
+        TicketResponseModel returnValue = new TicketResponseModel();
+
+        TicketDto ticketDto = ticketService.getTicketById(id);
+        BeanUtils.copyProperties(ticketDto, returnValue);
+
+        return returnValue;
     }
 
     /**

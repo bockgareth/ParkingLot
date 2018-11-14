@@ -2,6 +2,7 @@ package com.future.laboratories.ui.controller;
 
 import com.future.laboratories.service.impl.TicketServiceImpl;
 import com.future.laboratories.shared.dto.TicketDto;
+import com.future.laboratories.ui.model.response.ticket.TicketResponseModel;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -60,7 +61,7 @@ public class TicketControllerTest {
     public void testGetTicketById() {
         when(ticketService.getTicketById(anyInt())).thenReturn(ticketDto);
 
-        TicketDto ticketRest = ticketController.getTicketById(TICKET_ID);
+        TicketResponseModel ticketRest = ticketController.getTicketById(TICKET_ID);
 
         assertNotNull(ticketRest);
         assertEquals(TICKET_ID, ticketRest.getTicketId());
