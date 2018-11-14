@@ -3,6 +3,8 @@ package com.future.laboratories.ui.controller;
 import com.future.laboratories.service.ReportService;
 import com.future.laboratories.service.impl.ReportServiceImpl;
 import com.future.laboratories.shared.dto.ReportDto;
+import com.future.laboratories.ui.model.response.report.RevenueMonthResponseModel;
+import org.springframework.beans.BeanUtils;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -28,8 +30,15 @@ public class ReportController {
     @GET
     @Path("/reports/{month}")
     @Produces(MediaType.APPLICATION_JSON)
-    public ReportDto getReportByMonth(@PathParam("month") int month) {
-        return reportService.getReportByMonth(month);
+    public RevenueMonthResponseModel getReportByMonth(@PathParam("month") int month) {
+        RevenueMonthResponseModel returnValue = new RevenueMonthResponseModel();
+
+        ReportDto reportDto = reportService.getReportByMonth(month);
+
+        returnValue.setMonth(month);
+        returnValue.setRevenue(reportDto.getRevenue());
+
+        return returnValue;
     }
 
     /**

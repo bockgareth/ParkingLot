@@ -2,6 +2,7 @@ package com.future.laboratories.ui.controller;
 
 import com.future.laboratories.service.impl.ReportServiceImpl;
 import com.future.laboratories.shared.dto.ReportDto;
+import com.future.laboratories.ui.model.response.report.RevenueMonthResponseModel;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -40,7 +41,7 @@ public class ReportControllerTest {
     public void testGetReportByMonth() {
         when(reportService.getReportByMonth(anyInt())).thenReturn(reportDto);
 
-        ReportDto reportRest = reportController.getReportByMonth(11);
+        RevenueMonthResponseModel reportRest = reportController.getReportByMonth(11);
 
         assertNotNull(reportRest);
         assertEquals(reportDto.getMonth(), reportRest.getMonth());
