@@ -4,6 +4,7 @@ import com.future.laboratories.service.ReportService;
 import com.future.laboratories.service.impl.ReportServiceImpl;
 import com.future.laboratories.shared.dto.ReportDto;
 import com.future.laboratories.ui.model.response.report.LostTicketCountResponseModel;
+import com.future.laboratories.ui.model.response.report.PaymentModeResponseModel;
 import com.future.laboratories.ui.model.response.report.RevenueMonthDayResponseModel;
 import com.future.laboratories.ui.model.response.report.RevenueMonthResponseModel;
 
@@ -97,8 +98,16 @@ public class ReportController {
     @GET
     @Path("/reports/{month}/{day}/mode")
     @Produces(MediaType.APPLICATION_JSON)
-    public ReportDto getAmountDueMode(@PathParam("month") int month, @PathParam("day") int day) {
-        return reportService.getAmountDueMode(month, day);
+    public PaymentModeResponseModel getAmountDueMode(@PathParam("month") int month, @PathParam("day") int day) {
+        PaymentModeResponseModel returnValue = new PaymentModeResponseModel();
+
+        ReportDto reportDto = reportService.getAmountDueMode(month, day);
+
+        returnValue.setMonth(month);
+        returnValue.setDay(day);
+        returnValue.setMode(reportDto.getMode());
+
+        return returnValue;
     }
 
 }

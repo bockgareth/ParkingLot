@@ -3,6 +3,7 @@ package com.future.laboratories.ui.controller;
 import com.future.laboratories.service.impl.ReportServiceImpl;
 import com.future.laboratories.shared.dto.ReportDto;
 import com.future.laboratories.ui.model.response.report.LostTicketCountResponseModel;
+import com.future.laboratories.ui.model.response.report.PaymentModeResponseModel;
 import com.future.laboratories.ui.model.response.report.RevenueMonthDayResponseModel;
 import com.future.laboratories.ui.model.response.report.RevenueMonthResponseModel;
 import org.junit.Before;
@@ -74,7 +75,7 @@ public class ReportControllerTest {
     public void testGetAmountDueMode() {
         when(reportService.getAmountDueMode(anyInt(), anyInt())).thenReturn(reportDto);
 
-        ReportDto reportRest = reportController.getAmountDueMode(11, 12);
+        PaymentModeResponseModel reportRest = reportController.getAmountDueMode(11, 12);
 
         assertNotNull(reportRest);
         assertEquals(reportDto.getMode(), reportRest.getMode());
