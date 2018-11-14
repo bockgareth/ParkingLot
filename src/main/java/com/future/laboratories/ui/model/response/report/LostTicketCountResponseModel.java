@@ -1,11 +1,11 @@
 package com.future.laboratories.ui.model.response.report;
 
-public class TicketCountResponseModel {
+public class LostTicketCountResponseModel {
     private int month;
     private int day;
     private int lost;
 
-    public TicketCountResponseModel() {
+    public LostTicketCountResponseModel() {
     }
 
     public int getMonth() {
@@ -34,7 +34,7 @@ public class TicketCountResponseModel {
 
     @Override
     public String toString() {
-        return "TicketCountResponseModel{" +
+        return "LostTicketCountResponseModel{" +
                 "month=" + month +
                 ", day=" + day +
                 ", lost=" + lost +

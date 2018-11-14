@@ -3,6 +3,7 @@ package com.future.laboratories.ui.controller;
 import com.future.laboratories.service.ReportService;
 import com.future.laboratories.service.impl.ReportServiceImpl;
 import com.future.laboratories.shared.dto.ReportDto;
+import com.future.laboratories.ui.model.response.report.LostTicketCountResponseModel;
 import com.future.laboratories.ui.model.response.report.RevenueMonthDayResponseModel;
 import com.future.laboratories.ui.model.response.report.RevenueMonthResponseModel;
 
@@ -73,8 +74,16 @@ public class ReportController {
     @GET
     @Path("/reports/{month}/{day}/lost")
     @Produces(MediaType.APPLICATION_JSON)
-    public ReportDto getLostTicketCount(@PathParam("month") int month, @PathParam("day") int day) {
-        return reportService.getLostTicketCount(month, day);
+    public LostTicketCountResponseModel getLostTicketCount(@PathParam("month") int month, @PathParam("day") int day) {
+        LostTicketCountResponseModel returnValue = new LostTicketCountResponseModel();
+
+        ReportDto reportDto = reportService.getLostTicketCount(month, day);
+
+        returnValue.setMonth(month);
+        returnValue.setDay(day);
+        returnValue.setLost(reportDto.getLost());
+
+        return returnValue;
     }
 
     /**
