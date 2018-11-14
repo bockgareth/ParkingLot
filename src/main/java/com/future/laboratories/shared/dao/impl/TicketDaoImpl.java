@@ -1,6 +1,7 @@
 package com.future.laboratories.shared.dao.impl;
 
 import com.future.laboratories.entity.TicketEntity;
+import com.future.laboratories.shared.dao.TicketOperations;
 import com.future.laboratories.shared.dao.TicketDao;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
@@ -22,8 +23,7 @@ public class TicketDaoImpl extends JdbcDaoSupport implements TicketDao {
      * from a SQL result set.
      */
     public TicketEntity getTicketById(int id) {
-        String sql = "select * from ticket where ticket_id = ?";
-        return this.getJdbcTemplate().queryForObject(sql, new Object[] {id}, new TicketMapper());
+        return this.getJdbcTemplate().queryForObject(TicketOperations.GET_TICKET_BY_ID, new Object[] {id}, new TicketMapper());
     }
 
     /**
@@ -32,8 +32,7 @@ public class TicketDaoImpl extends JdbcDaoSupport implements TicketDao {
      * from a SQL result set.
      */
     public List<TicketEntity> getAllTickets() {
-        String sql = "select * from ticket";
-        return this.getJdbcTemplate().query(sql, new TicketMapper());
+        return this.getJdbcTemplate().query(TicketOperations.GET_ALL_TICKETS, new TicketMapper());
     }
 
     /**
@@ -41,8 +40,7 @@ public class TicketDaoImpl extends JdbcDaoSupport implements TicketDao {
      * @param ticket a TicketEntity to be mapped to sql and inserted.
      */
     public void createTicket(TicketEntity ticket) {
-        String sql = "insert into ticket (ticket_id, ticket_date, ticket_enter_time, ticket_exit_time) values (?, ?, ?, ?)";
-        this.getJdbcTemplate().update(sql, new Object[] {ticket.getTicketId(), ticket.getTicketDate(), ticket.getEnterTime(), ticket.getExitTime()});
+        this.getJdbcTemplate().update(TicketOperations.CREATE_TICKET, new Object[] {ticket.getTicketId(), ticket.getTicketDate(), ticket.getEnterTime(), ticket.getExitTime()});
     }
 
     /**
@@ -51,8 +49,7 @@ public class TicketDaoImpl extends JdbcDaoSupport implements TicketDao {
      * @param ticket a TicketEntity to be mapped to sql and updated.
      */
     public void updateTicket(TicketEntity ticket) {
-        String sql = "update ticket set ticket_exit_time = ?, is_ticket_lost = ?, amount_due = ? where id = ?";
-        this.getJdbcTemplate().update(sql, new Object[] {ticket.getExitTime(), ticket.isTicketLost(), ticket.getAmountDue(), ticket.getTicketId()});
+        this.getJdbcTemplate().update(TicketOperations.UPDATE_TICKET, new Object[] {ticket.getExitTime(), ticket.isTicketLost(), ticket.getAmountDue(), ticket.getTicketId()});
     }
 
     /**
