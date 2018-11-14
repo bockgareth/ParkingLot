@@ -8,6 +8,7 @@ import org.springframework.beans.BeanUtils;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,9 +30,18 @@ public class TicketController {
     @GET
     @Path("/tickets")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<TicketDto> getAllTickets() {
+    public List<TicketResponseModel> getAllTickets() {
+        List<TicketResponseModel> returnValue = new ArrayList<>();
 
-        return ticketService.getAllTickets();
+        List<TicketDto> tickets = ticketService.getAllTickets();
+
+        for (TicketDto ticket: tickets) {
+            TicketResponseModel responseModel = new TicketResponseModel();
+            BeanUtils.copyProperties(ticket, responseModel);
+            returnValue.add(responseModel);
+        }
+
+        return returnValue;
     }
 
     /**

@@ -49,7 +49,7 @@ public class TicketControllerTest {
     public void testGetAllTickets() {
         when(ticketService.getAllTickets()).thenReturn(Arrays.asList(ticketDto, new TicketDto()));
 
-        List<TicketDto> ticketRest = ticketController.getAllTickets();
+        List<TicketResponseModel> ticketRest = ticketController.getAllTickets();
 
         assertNotNull(ticketRest);
         assertEquals(TICKET_ID, ticketRest.get(0).getTicketId());
