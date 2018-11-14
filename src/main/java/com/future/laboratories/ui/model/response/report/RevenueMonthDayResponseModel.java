@@ -1,5 +1,10 @@
 package com.future.laboratories.ui.model.response.report;
 
+/**
+ * This class acts as a response model for
+ * when the client requests a report on the revenue
+ * generated for the day.
+ */
 public class RevenueMonthDayResponseModel {
     private int month;
     private int day;
