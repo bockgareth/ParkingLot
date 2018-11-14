@@ -10,8 +10,11 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * The class acts as an implementation for the Ticket Service. Performs
@@ -60,12 +63,14 @@ public class TicketServiceImpl implements TicketService {
 
     /**
      * Used to create a TicketEntity and send to a ticket dao.
-     * @param ticket a TicketDto to be created.
      * @return a TicketDto to be return to the client.
      */
-    public TicketDto createTicket(TicketDto ticket) {
+    public TicketDto createTicket() {
         TicketEntity ticketEntity = new TicketEntity();
-        BeanUtils.copyProperties(ticket, ticketEntity);
+        ticketEntity.setTicketId(new Random().nextInt(999999999));
+        ticketEntity.setTicketDate(LocalDate.now());
+        ticketEntity.setEnterTime(LocalTime.now());
+        ticketEntity.setExitTime(LocalTime.of(0, 0, 0));
 
         ticketDao.createTicket(ticketEntity);
 
@@ -77,12 +82,12 @@ public class TicketServiceImpl implements TicketService {
 
     /**
      * Used to update a TicketEntity and send to a ticket dao.
-     * @param id the id of a ticket that will be requested.
      * @param ticket a TicketDto to be updated.
      * @return a TicketDto to be return to the client.
      */
-    public TicketDto updateTicket(int id, TicketDto ticket) {
-        TicketEntity ticketEntity = ticketDao.getTicketById(id);
+    public TicketDto updateTicket(TicketDto ticket) {
+        TicketEntity ticketEntity = ticketDao.getTicketById(ticket.getId());
+
         ticketEntity.setExitTime(ticket.getExitTime());
         ticketEntity.setTicketLost(ticket.isTicketLost());
 
