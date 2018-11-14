@@ -15,7 +15,6 @@ public class TicketDto {
     private LocalTime enterTime;
     private LocalTime exitTime;
     private boolean isTicketLost;
-
     private int amountDue;
 
     public TicketDto() {
