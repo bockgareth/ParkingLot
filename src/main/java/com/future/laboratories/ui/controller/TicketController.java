@@ -3,7 +3,10 @@ package com.future.laboratories.ui.controller;
 import com.future.laboratories.service.TicketService;
 import com.future.laboratories.service.impl.TicketServiceImpl;
 import com.future.laboratories.shared.dto.TicketDto;
+import com.future.laboratories.ui.model.request.ticket.UpdateTicketRequestModel;
+import com.future.laboratories.ui.model.response.ticket.CreatedTicketResponseModel;
 import com.future.laboratories.ui.model.response.ticket.TicketResponseModel;
+import com.future.laboratories.ui.model.response.ticket.UpdatedTicketResponseModel;
 import org.springframework.beans.BeanUtils;
 
 import javax.ws.rs.*;
@@ -63,29 +66,44 @@ public class TicketController {
 
     /**
      * POST (on 200 OK) request to create a single ticket.
-     * @param ticket the TicketDto object that comes in the request body.
      * @return a TicketDto as a response, output declared as json.
      */
     @POST
     @Path("/tickets")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public TicketDto createTicket(TicketDto ticket) {
-        return ticketService.createTicket(ticket);
+    public CreatedTicketResponseModel createTicket() {
+        CreatedTicketResponseModel returnValue = new CreatedTicketResponseModel();
+
+        TicketDto ticketDto = ticketService.createTicket();
+        BeanUtils.copyProperties(ticketDto, returnValue);
+
+        return returnValue;
     }
 
     /**
      * PUT (on 200 OK) request to update a ticket. Used for closing a ticket.
      * @param id the id of a ticket that will be requested.
-     * @param ticket the TicketDto object that comes in the request body.
+     * @param ticketRequestModel the TicketDto object that comes in the request body.
      * @return a TicketDto as a response, output declared as json.
      */
     @PUT
     @Path("/tickets/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public TicketDto updateTicket(@PathParam("id") int id, TicketDto ticket) {
-        return ticketService.updateTicket(id, ticket);
+    public UpdatedTicketResponseModel updateTicket(@PathParam("id") int id, UpdateTicketRequestModel ticketRequestModel) {
+        UpdatedTicketResponseModel returnValue = new UpdatedTicketResponseModel();
+
+        TicketDto ticket = new TicketDto();
+
+        ticket.setExitTime(ticketRequestModel.getExitTime());
+        ticket.setTicketLost(ticketRequestModel.isTicketLost());
+        ticket.setId(id);
+
+        TicketDto ticketDto = ticketService.updateTicket(ticket);
+        BeanUtils.copyProperties(ticketDto, returnValue);
+
+        return returnValue;
     }
 
 }
