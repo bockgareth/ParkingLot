@@ -6,8 +6,6 @@ import com.future.laboratories.shared.dao.TicketDao;
 import com.future.laboratories.shared.dao.impl.TicketDaoImpl;
 import com.future.laboratories.shared.dto.TicketDto;
 import org.springframework.beans.BeanUtils;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.time.Duration;
 import java.time.LocalDate;
@@ -25,8 +23,7 @@ public class TicketServiceImpl implements TicketService {
     /**
      * com.future.laboratories.shared.dao.impl.TicketDaoImpl to be injected.
      */
-    ApplicationContext ctx = new ClassPathXmlApplicationContext("databaseContext.xml");
-    TicketDao ticketDao = ctx.getBean("ticketDao", TicketDaoImpl.class);
+    TicketDao ticketDao = new TicketDaoImpl();
 
     /**
      * Used to retrieve a single TicketEntity object based on its id

@@ -3,8 +3,9 @@ package com.future.laboratories.shared.dao.impl;
 import com.future.laboratories.entity.TicketEntity;
 import com.future.laboratories.shared.dao.TicketOperations;
 import com.future.laboratories.shared.dao.TicketDao;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.support.JdbcDaoSupport;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,7 +15,23 @@ import java.util.List;
  * This class acts as the ticket data access object that generic
  * crud operations for ticket related queries.
  */
-public class TicketDaoImpl extends JdbcDaoSupport implements TicketDao {
+public class TicketDaoImpl implements TicketDao {
+
+    private DriverManagerDataSource dataSource;
+    private JdbcTemplate jdbcTemplate;
+
+    public TicketDaoImpl() {
+        dataSource = new DriverManagerDataSource();
+        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
+        dataSource.setUrl("jdbc:mysql://localhost:3306/parking_lot");
+        dataSource.setUsername("root");
+        dataSource.setPassword("password");
+        jdbcTemplate = new JdbcTemplate(dataSource);
+    }
+
+    public JdbcTemplate getJdbcTemplate() {
+        return jdbcTemplate;
+    }
 
     /**
      * Used to retrieve a single TicketEntity object based on its id.

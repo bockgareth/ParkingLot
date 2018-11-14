@@ -22,8 +22,7 @@ public class ReportServiceImpl implements ReportService {
     /**
      * com.future.laboratories.shared.dao.impl.TicketDaoImpl to be injected.
      */
-    ApplicationContext ctx = new ClassPathXmlApplicationContext("databaseContext.xml");
-    TicketDao ticketDao = ctx.getBean("ticketDao", TicketDaoImpl.class);
+    TicketDao ticketDao = new TicketDaoImpl();
 
     /**
      * Service call to get a ReportDto containing report
