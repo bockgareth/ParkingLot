@@ -17,6 +17,11 @@ Start the embedded Tomcat server.
 mvn tomcat7:run
 ```
 
+Navigate to 
+```
+localhost:8080
+```
+
 ## Usage
 
 ### Revenue generated for the month
