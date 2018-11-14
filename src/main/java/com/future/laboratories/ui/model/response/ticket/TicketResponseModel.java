@@ -3,6 +3,9 @@ package com.future.laboratories.ui.model.response.ticket;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+/**
+ * This class acts as a response model for tickets.
+ */
 public class TicketResponseModel {
 
     private int ticketId;

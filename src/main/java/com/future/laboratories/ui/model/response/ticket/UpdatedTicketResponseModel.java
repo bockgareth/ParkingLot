@@ -3,6 +3,10 @@ package com.future.laboratories.ui.model.response.ticket;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+/**
+ * This class acts as a response model for
+ * when the client updates a ticket.
+ */
 public class UpdatedTicketResponseModel {
 
     private int ticketId;
