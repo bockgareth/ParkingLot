@@ -2,6 +2,7 @@ package com.future.laboratories.ui.controller;
 
 import com.future.laboratories.service.impl.ReportServiceImpl;
 import com.future.laboratories.shared.dto.ReportDto;
+import com.future.laboratories.ui.model.response.report.RevenueMonthDayResponseModel;
 import com.future.laboratories.ui.model.response.report.RevenueMonthResponseModel;
 import org.junit.Before;
 import org.junit.Test;
@@ -51,7 +52,7 @@ public class ReportControllerTest {
     public void testGetReportByDay() {
         when(reportService.getReportByDay(anyInt(), anyInt())).thenReturn(reportDto);
 
-        ReportDto reportRest = reportController.getReportByDay(11, 12);
+        RevenueMonthDayResponseModel reportRest = reportController.getReportByDay(11, 12);
 
         assertNotNull(reportRest);
         assertEquals(reportDto.getMonth(), reportRest.getMonth());
