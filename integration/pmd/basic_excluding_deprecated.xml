@@ -1,2 +1,31 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<ruleset></ruleset>
+<ruleset name="BasicExcludingDeprecated"
+         xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 http://pmd.sourceforge.net/ruleset_2_0_0.xsd">
+    <description>
+        The Basic ruleset excluding the deprecated (PMD 5.3.2) rules from the Empty and Unnecessary rulesets.
+    </description>
+
+    <rule ref="rulesets/java/basic.xml">
+        <exclude name="EmptyCatchBlock" />
+        <exclude name="EmptyIfStmt" />
+        <exclude name="EmptyWhileStmt" />
+        <exclude name="EmptyTryBlock" />
+        <exclude name="EmptyFinallyBlock" />
+        <exclude name="EmptySwitchStatements" />
+        <exclude name="EmptySynchronizedBlock" />
+        <exclude name="EmptyStatementNotInLoop" />
+        <exclude name="EmptyInitializer" />
+        <exclude name="EmptyStatementBlock" />
+        <exclude name="EmptyStaticInitializer" />
+        <exclude name="UnnecessaryConversionTemporary" />
+        <exclude name="UnnecessaryReturn" />
+        <exclude name="UnnecessaryFinalModifier" />
+        <exclude name="UselessOverridingMethod" />
+        <exclude name="UselessOperationOnImmutable" />
+        <exclude name="UnusedNullCheckInEquals" />
+        <exclude name="UselessParentheses" />
+    </rule>
+
+</ruleset>

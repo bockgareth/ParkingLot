@@ -1,2 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<ruleset></ruleset>
+<ruleset name="UnnecessaryExcludingUselessParentheses"
+         xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 http://pmd.sourceforge.net/ruleset_2_0_0.xsd">
+    <description>
+        The Unnecessary ruleset excluding the UselessParentheses rule.
+    </description>
+
+    <rule ref="rulesets/java/unnecessary.xml">
+        <exclude name="UselessParentheses" />
+    </rule>
+
+</ruleset>
