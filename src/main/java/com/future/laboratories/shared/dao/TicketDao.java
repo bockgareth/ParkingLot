@@ -1,6 +1,7 @@
 package com.future.laboratories.shared.dao;
 
 import com.future.laboratories.entity.TicketEntity;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.util.List;
 
@@ -13,4 +14,5 @@ public interface TicketDao {
     public List<TicketEntity> getAllTickets();
     public void createTicket(TicketEntity ticket);
     public void updateTicket(TicketEntity ticket);
+    public JdbcTemplate getJdbcTemplate();
 }
