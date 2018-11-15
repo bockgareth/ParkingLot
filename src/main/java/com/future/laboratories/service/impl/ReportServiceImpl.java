@@ -113,10 +113,8 @@ public class ReportServiceImpl implements ReportService {
         int lostTicketCount = 0;
 
         for (TicketEntity ticket: tickets) {
-            if (ticket.getTicketDate().getMonth().getValue() == month && ticket.getTicketDate().getDayOfMonth() == day) {
-                if (ticket.isTicketLost()) {
-                    lostTicketCount++;
-                }
+            if (ticket.getTicketDate().getMonth().getValue() == month && ticket.getTicketDate().getDayOfMonth() == day && ticket.isTicketLost()) {
+                lostTicketCount++;
             }
         }
 
