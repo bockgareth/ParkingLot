@@ -28,6 +28,44 @@
                     <path>/</path>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>2.17</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.puppycrawl.tools</groupId>
+                        <artifactId>checkstyle</artifactId>
+                        <version>LATEST</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <configLocation>integration/checkstyle/checkstyle.xml</configLocation>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>3.6</version>
+                <configuration>
+                    <rulesets>
+                        <ruleset>integration/pmd/basic_excluding_deprecated.xml</ruleset>
+                        <ruleset>integration/pmd/unnecessary_excluding_useless_parentheses.xml</ruleset>
+                    </rulesets>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+                <version>3.0.4</version>
+                <configuration>
+                    <excludeFilterFile>integration/findbugs/findbugs_exclusions.xml</excludeFilterFile>
+                    <xmlOutput>true</xmlOutput>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
