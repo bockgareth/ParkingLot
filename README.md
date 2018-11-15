@@ -44,7 +44,7 @@ localhost:8080
 ```
 
 ### Revenue generated for the day.
-
+   
 **Definition**
 
 `GET /reports/<month>/<day>`
@@ -56,10 +56,30 @@ localhost:8080
 
 ```json
 [
+   {
+       "month": "11",
+       "day": "12",
+       "revenue": "950"
+   }
+]
+```
+   
+### Revenue generated for the week of a year.
+
+**Definition**
+
+`GET /reports/week/<week>`
+
+**Response**
+
+- `404 Not Found` if the report does not exist
+- `200 OK` on success
+
+```json
+[
     {
-        "month": "11",
-        "day": "12",
-        "revenue": "950"
+        "week": "46",
+        "revenue": "1260"
     }
 ]
 ```
