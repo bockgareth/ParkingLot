@@ -2,10 +2,7 @@ package com.future.laboratories.ui.controller;
 
 import com.future.laboratories.service.impl.ReportServiceImpl;
 import com.future.laboratories.shared.dto.ReportDto;
-import com.future.laboratories.ui.model.response.report.LostTicketCountResponseModel;
-import com.future.laboratories.ui.model.response.report.PaymentModeResponseModel;
-import com.future.laboratories.ui.model.response.report.RevenueMonthDayResponseModel;
-import com.future.laboratories.ui.model.response.report.RevenueMonthResponseModel;
+import com.future.laboratories.ui.model.response.report.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -59,6 +56,16 @@ public class ReportControllerTest {
         assertNotNull(reportRest);
         assertEquals(reportDto.getMonth(), reportRest.getMonth());
         assertEquals(reportDto.getDay(), reportRest.getDay());
+    }
+
+    @Test
+    public void testGetReportByWeek() {
+        when(reportService.getReportByWeek(anyInt())).thenReturn(reportDto);
+
+        RevenueWeekResponseModel reportRest = reportController.getReportByWeek(46);
+
+        assertNotNull(reportRest);
+        assertEquals(reportDto.getRevenue(), reportRest.getRevenue());
     }
 
     @Test
