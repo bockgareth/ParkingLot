@@ -5,6 +5,8 @@ import com.future.laboratories.service.ReportService;
 import com.future.laboratories.shared.dao.TicketDao;
 import com.future.laboratories.shared.dao.impl.TicketDaoImpl;
 import com.future.laboratories.shared.dto.ReportDto;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.time.temporal.WeekFields;
 import java.util.ArrayList;
@@ -22,7 +24,8 @@ public class ReportServiceImpl implements ReportService {
     /**
      * com.future.laboratories.shared.dao.impl.TicketDaoImpl to be injected.
      */
-    TicketDao ticketDao = new TicketDaoImpl();
+    ApplicationContext ctx = new ClassPathXmlApplicationContext("databaseContext.xml");
+    TicketDao ticketDao = ctx.getBean("ticketDao", TicketDaoImpl.class);
 
     /**
      * Service call to get a ReportDto containing report
