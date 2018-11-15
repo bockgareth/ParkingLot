@@ -5,12 +5,12 @@ import com.future.laboratories.service.ReportService;
 import com.future.laboratories.shared.dao.TicketDao;
 import com.future.laboratories.shared.dao.impl.TicketDaoImpl;
 import com.future.laboratories.shared.dto.ReportDto;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 
 /**
@@ -69,6 +69,24 @@ public class ReportServiceImpl implements ReportService {
 
         for (TicketEntity ticket: tickets) {
             if (ticket.getTicketDate().getMonth().getValue() == month && ticket.getTicketDate().getDayOfMonth() == day) {
+                values.add(ticket.getAmountDue());
+            }
+        }
+
+        returnValue.setRevenue(reduce(values));
+
+        return returnValue;
+    }
+
+    public ReportDto getReportByWeek(int week) {
+        ReportDto returnValue = new ReportDto();
+
+        List<TicketEntity> tickets = ticketDao.getAllTickets();
+
+        List<Integer> values = new ArrayList<>();
+
+        for (TicketEntity ticket: tickets) {
+            if (ticket.getTicketDate().get(WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear()) == week) {
                 values.add(ticket.getAmountDue());
             }
         }
