@@ -34,15 +34,15 @@ public class ReportServiceImplTest {
 
         ticketEntity = new TicketEntity();
         ticketEntity.setTicketId(TICKET_ID);
+        ticketEntity.setExitTime(LocalTime.of(11, 30));
         ticketEntity.setTicketDate(LocalDate.of(2018, 11, 12));
         ticketEntity.setEnterTime(LocalTime.of(10, 30));
-        ticketEntity.setExitTime(LocalTime.of(11, 30));
         ticketEntity.setTicketLost(false);
         ticketEntity.setAmountDue(20);
     }
 
     @Test
-    public void getReportByMonth() {
+    public void testGetReportByMonth() {
         when(ticketDao.getAllTickets()).thenReturn(Arrays.asList(ticketEntity));
 
         ReportDto reportDto = reportService.getReportByMonth(11);
@@ -52,7 +52,7 @@ public class ReportServiceImplTest {
     }
 
     @Test
-    public void getReportByDay() {
+    public void testGetReportByDay() {
         when(ticketDao.getAllTickets()).thenReturn(Arrays.asList(ticketEntity));
 
         ReportDto reportDto = reportService.getReportByDay(11, 12);
@@ -62,7 +62,7 @@ public class ReportServiceImplTest {
     }
 
     @Test
-    public void getLostTicketCount() {
+    public void testGetLostTicketCount() {
         when(ticketDao.getAllTickets()).thenReturn(Arrays.asList(ticketEntity));
 
         ReportDto reportDto = reportService.getLostTicketCount(11, 12);
@@ -72,7 +72,7 @@ public class ReportServiceImplTest {
     }
 
     @Test
-    public void getAmountDueMode() {
+    public void testGetAmountDueMode() {
         when(ticketDao.getAllTickets()).thenReturn(Arrays.asList(ticketEntity));
 
         ReportDto reportDto = reportService.getAmountDueMode(11, 12);
