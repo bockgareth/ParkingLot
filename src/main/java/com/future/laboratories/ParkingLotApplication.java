@@ -19,11 +19,12 @@ public class ParkingLotApplication extends Application {
     private Set<Object> singletons = new HashSet<>();
 
     public ParkingLotApplication() {
-        Flyway flyway = new Flyway();
-        flyway.setDataSource("jdbc:mysql://localhost:3306/parking_lot", "root", "password");
-        flyway.migrate();
+        Flyway flyway = Flyway
+                            .configure()
+                            .dataSource("jdbc:mysql://localhost:3306/parking_lot", "root", "password")
+                            .load();
 
-        System.out.println("Successfully migrated.");
+        flyway.migrate();
 
         singletons.add(new TicketController());
         singletons.add(new ReportController());
