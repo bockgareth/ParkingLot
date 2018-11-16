@@ -2,6 +2,7 @@ package com.future.laboratories.ui.controller;
 
 import com.future.laboratories.service.impl.ReportServiceImpl;
 import com.future.laboratories.shared.dto.ReportDto;
+import com.future.laboratories.shared.dto.TimeDistributionDto;
 import com.future.laboratories.ui.model.response.report.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,6 +25,7 @@ public class ReportControllerTest {
     ReportServiceImpl reportService;
 
     ReportDto reportDto;
+    TimeDistributionDto distributionDto;
 
     @Before
     public void setUp() throws Exception {
@@ -35,6 +37,10 @@ public class ReportControllerTest {
         reportDto.setRevenue(40);
         reportDto.setLost(0);
         reportDto.setMode(20);
+
+        distributionDto = new TimeDistributionDto();
+        distributionDto.setMonth(11);
+        distributionDto.setDay(12);
     }
 
     @Test
@@ -66,6 +72,28 @@ public class ReportControllerTest {
 
         assertNotNull(reportRest);
         assertEquals(reportDto.getRevenue(), reportRest.getRevenue());
+    }
+
+    @Test
+    public void tesGetDistributionByCarsEntering() {
+        when(reportService.getDistributionByCarEntering(anyInt(), anyInt())).thenReturn(distributionDto);
+
+        TimeDistributionResponseModel distributionResponseModel = reportController.getDistributionByCarsEntering(11, 12);
+
+        assertNotNull(distributionResponseModel);
+        assertEquals(distributionDto.getMonth(), distributionResponseModel.getMonth());
+        assertEquals(distributionDto.getDay(), distributionResponseModel.getDay());
+    }
+
+    @Test
+    public void testGetDistributionByCarsLeaving() {
+        when(reportService.getDistributionByCarLeaving(anyInt(), anyInt())).thenReturn(distributionDto);
+
+        TimeDistributionResponseModel distributionResponseModel = reportController.getDistributionByCarsLeaving(11, 12);
+
+        assertNotNull(distributionResponseModel);
+        assertEquals(distributionDto.getMonth(), distributionResponseModel.getMonth());
+        assertEquals(distributionDto.getDay(), distributionResponseModel.getDay());
     }
 
     @Test
