@@ -5,6 +5,7 @@ import com.future.laboratories.service.ReportService;
 import com.future.laboratories.shared.dao.TicketDao;
 import com.future.laboratories.shared.dao.impl.TicketDaoImpl;
 import com.future.laboratories.shared.dto.ReportDto;
+import com.future.laboratories.shared.dto.TimeDistributionDto;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -30,8 +31,8 @@ public class ReportServiceImpl implements ReportService {
     /**
      * Service call to get a ReportDto containing report
      * information on the month.
-     * @param month the month for getting the required lost
-     * ticket count.
+     * @param month the month for getting the required report
+     * information.
      * @return a ReportDto containing the revenue generated
      * for the month.
      */
@@ -56,10 +57,10 @@ public class ReportServiceImpl implements ReportService {
     /**
      * Service call to get a ReportDto containing report
      * information on the day of the specified month.
-     * @param month the month for getting the required lost
-     * ticket count.
-     * @param day the day for getting the required lost ticket
-     * count.
+     * @param month the month for getting the required report
+     * information.
+     * @param day the day for getting the required report
+     * information.
      * @return a ReportDto containing the revenue generated
      * for the month and day.
      */
@@ -81,6 +82,14 @@ public class ReportServiceImpl implements ReportService {
         return returnValue;
     }
 
+    /**
+     * Service call to get a ReportDto containing report
+     * information for the specified week of the year.
+     * @param week the week of the year for getting the required report
+     * information.
+     * @return a ReportDto containing the revenue generated
+     * for the week.
+     */
     public ReportDto getReportByWeek(int week) {
         ReportDto returnValue = new ReportDto();
 
@@ -95,6 +104,41 @@ public class ReportServiceImpl implements ReportService {
         }
 
         returnValue.setRevenue(reduce(values));
+
+        return returnValue;
+    }
+
+    /**
+     * Service call to get a TimeDistributionDto containing report
+     * information on the day of the specified month.
+     * @param month the month for getting the required report
+     * information.
+     * @param day the day for getting the required report
+     * information.
+     * @return a TimeDistributionDto containing the time distribution
+     * for cars entering the complex.
+     */
+    public TimeDistributionDto getDistributionByCarEntering(int month, int day) {
+        TimeDistributionDto returnValue = new TimeDistributionDto();
+
+        List<TicketEntity> tickets = ticketDao.getAllTickets();
+
+        return returnValue;
+    }
+
+    /**
+     *
+     * @param month the month for getting the required report
+     * information.
+     * @param day the day for getting the required report
+     * information.
+     * @return a TimeDistributionDto containing the time distribution
+     * for cars leaving the complex.
+     */
+    public TimeDistributionDto getDistributionByCarLeaving(int month, int day) {
+        TimeDistributionDto returnValue = new TimeDistributionDto();
+
+        List<TicketEntity> tickets = ticketDao.getAllTickets();
 
         return returnValue;
     }
