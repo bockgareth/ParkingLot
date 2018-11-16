@@ -11,10 +11,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.time.LocalTime;
 import java.time.temporal.WeekFields;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 
 /**
@@ -142,6 +139,8 @@ public class ReportServiceImpl implements ReportService {
             }
         }
 
+        returnValue.setTimeMap(setTimeMap(returnValue));
+
         return returnValue;
     }
 
@@ -158,6 +157,8 @@ public class ReportServiceImpl implements ReportService {
         TimeDistributionDto returnValue = new TimeDistributionDto();
 
         List<TicketEntity> tickets = ticketDao.getAllTickets();
+
+        Map<String, Integer> time = new HashMap<>();
 
         for (TicketEntity ticket: tickets) {
             if (ticket.getTicketDate().getMonth().getValue() == month && ticket.getTicketDate().getDayOfMonth() == day) {
@@ -176,6 +177,8 @@ public class ReportServiceImpl implements ReportService {
                 if (ticket.getExitTime().isAfter(LocalTime.parse("15:00:00")) && ticket.getExitTime().isBefore(LocalTime.parse("15:29:00"))) returnValue.setFifteen(returnValue.getFifteen() + 1);
             }
         }
+
+        returnValue.setTimeMap(setTimeMap(returnValue));
 
         return returnValue;
     }
@@ -274,6 +277,32 @@ public class ReportServiceImpl implements ReportService {
             }
         }
         return temp;
+    }
+
+    /**
+     * Helper method to convert all the properties of
+     * a TimeDistributionDto to a HashMap.
+     * @param dto the TimeDistributionDto that has properties to
+     * be converted.
+     * @return the set HashMap.
+     */
+    private Map setTimeMap(TimeDistributionDto dto) {
+        Map<String, Integer> time = new HashMap<>();
+        time.put("09:00", dto.getNine());
+        time.put("09:30", dto.getNineThirty());
+        time.put("10:00", dto.getTen());
+        time.put("10:30", dto.getTenThirty());
+        time.put("11:00", dto.getEleven());
+        time.put("11:30", dto.getElevenThirty());
+        time.put("12:00", dto.getTwelve());
+        time.put("12:30", dto.getTwelveThirty());
+        time.put("13:00", dto.getThirteen());
+        time.put("13:30", dto.getThirteenThirty());
+        time.put("14:00", dto.getFourteen());
+        time.put("14:30", dto.getFourteenThirty());
+        time.put("15:00", dto.getFifteen());
+        dto.setTimeMap(time);
+        return dto.getTimeMap();
     }
 
 }
