@@ -3,7 +3,9 @@ package com.future.laboratories.ui.controller;
 import com.future.laboratories.service.ReportService;
 import com.future.laboratories.service.impl.ReportServiceImpl;
 import com.future.laboratories.shared.dto.ReportDto;
+import com.future.laboratories.shared.dto.TimeDistributionDto;
 import com.future.laboratories.ui.model.response.report.*;
+import org.springframework.beans.BeanUtils;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -93,6 +95,11 @@ public class ReportController {
     @Produces(MediaType.APPLICATION_JSON)
     public TimeDistributionResponseModel getDistributionByCarsEntering(@PathParam("month") int month, @PathParam("day") int day) {
         TimeDistributionResponseModel returnValue = new TimeDistributionResponseModel();
+
+        TimeDistributionDto distributionDto = reportService.getDistributionByCarEntering(month, day);
+
+        BeanUtils.copyProperties(distributionDto, returnValue);
+
         return returnValue;
     }
 
@@ -108,6 +115,11 @@ public class ReportController {
     @Produces(MediaType.APPLICATION_JSON)
     public TimeDistributionResponseModel getDistributionByCarsLeaving(@PathParam("month") int month, @PathParam("day") int day) {
         TimeDistributionResponseModel returnValue = new TimeDistributionResponseModel();
+
+        TimeDistributionDto distributionDto = reportService.getDistributionByCarLeaving(month, day);
+
+        BeanUtils.copyProperties(distributionDto, returnValue);
+
         return returnValue;
     }
 
