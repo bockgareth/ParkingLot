@@ -99,6 +99,8 @@ public class ReportController {
         TimeDistributionDto distributionDto = reportService.getDistributionByCarEntering(month, day);
 
         BeanUtils.copyProperties(distributionDto, returnValue);
+        returnValue.setMonth(month);
+        returnValue.setDay(day);
 
         return returnValue;
     }
