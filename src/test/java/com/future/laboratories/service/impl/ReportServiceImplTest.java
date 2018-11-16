@@ -3,6 +3,7 @@ package com.future.laboratories.service.impl;
 import com.future.laboratories.entity.TicketEntity;
 import com.future.laboratories.shared.dao.impl.TicketDaoImpl;
 import com.future.laboratories.shared.dto.ReportDto;
+import com.future.laboratories.shared.dto.TimeDistributionDto;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -59,6 +60,34 @@ public class ReportServiceImplTest {
 
         assertNotNull(reportDto);
         assertEquals(20, reportDto.getRevenue());
+    }
+
+    @Test
+    public void testGetReportByWeek() {
+        when(ticketDao.getAllTickets()).thenReturn(Arrays.asList(ticketEntity));
+
+        ReportDto reportDto = reportService.getReportByWeek(46);
+
+        assertNotNull(reportDto);
+        assertEquals(20, reportDto.getRevenue());
+    }
+
+    @Test
+    public void testGetDistributionByCarEntering() {
+        when(ticketDao.getAllTickets()).thenReturn(Arrays.asList(ticketEntity));
+
+        TimeDistributionDto distributionDto = reportService.getDistributionByCarEntering(11, 12);
+
+        assertNotNull(distributionDto);
+    }
+
+    @Test
+    public void testGetDistributionByCarLeaving() {
+        when(ticketDao.getAllTickets()).thenReturn(Arrays.asList(ticketEntity));
+
+        TimeDistributionDto distributionDto = reportService.getDistributionByCarLeaving(11, 12);
+
+        assertNotNull(distributionDto);
     }
 
     @Test
