@@ -1,5 +1,8 @@
 package com.future.laboratories.shared.dto;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * This class acts as a time distribution data transfer
  * object. Has no communication with data layer.
@@ -8,20 +11,20 @@ public class TimeDistributionDto {
 
     private int month;
     private int day;
-    private int Nine = 0;
-    private int NineThirty = 0;
-    private int Ten = 0;
-    private int TenThirty = 0;
-    private int Eleven = 0;
-    private int ElevenThirty = 0;
-    private int Twelve = 0;
-    private int TwelveThirty = 0;
-    private int Thirteen = 0;
-    private int ThirteenThirty = 0;
-    private int Fourteen = 0;
-    private int FourteenThirty = 0;
-    private int Fifteen = 0;
-    private int FifteenThirty = 0;
+    private Map<String, Integer> timeMap = new HashMap<>();
+    private int nine = 0;
+    private int nineThirty = 0;
+    private int ten = 0;
+    private int tenThirty = 0;
+    private int eleven = 0;
+    private int elevenThirty = 0;
+    private int twelve = 0;
+    private int twelveThirty = 0;
+    private int thirteen = 0;
+    private int thirteenThirty = 0;
+    private int fourteen = 0;
+    private int fourteenThirty = 0;
+    private int fifteen = 0;
 
     public TimeDistributionDto() {
     }
@@ -42,137 +45,136 @@ public class TimeDistributionDto {
         this.day = day;
     }
 
+    public Map<String, Integer> getTimeMap() {
+        return timeMap;
+    }
+
+    public void setTimeMap(Map<String, Integer> timeMap) {
+        this.timeMap = timeMap;
+    }
+
     public int getNine() {
-        return Nine;
+        return nine;
     }
 
     public void setNine(int nine) {
-        Nine = nine;
+        this.nine = nine;
     }
 
     public int getNineThirty() {
-        return NineThirty;
+        return nineThirty;
     }
 
     public void setNineThirty(int nineThirty) {
-        NineThirty = nineThirty;
+        this.nineThirty = nineThirty;
     }
 
     public int getTen() {
-        return Ten;
+        return ten;
     }
 
     public void setTen(int ten) {
-        Ten = ten;
+        this.ten = ten;
     }
 
     public int getTenThirty() {
-        return TenThirty;
+        return tenThirty;
     }
 
     public void setTenThirty(int tenThirty) {
-        TenThirty = tenThirty;
+        this.tenThirty = tenThirty;
     }
 
     public int getEleven() {
-        return Eleven;
+        return eleven;
     }
 
     public void setEleven(int eleven) {
-        Eleven = eleven;
+        this.eleven = eleven;
     }
 
     public int getElevenThirty() {
-        return ElevenThirty;
+        return elevenThirty;
     }
 
     public void setElevenThirty(int elevenThirty) {
-        ElevenThirty = elevenThirty;
+        this.elevenThirty = elevenThirty;
     }
 
     public int getTwelve() {
-        return Twelve;
+        return twelve;
     }
 
     public void setTwelve(int twelve) {
-        Twelve = twelve;
+        this.twelve = twelve;
     }
 
     public int getTwelveThirty() {
-        return TwelveThirty;
+        return twelveThirty;
     }
 
     public void setTwelveThirty(int twelveThirty) {
-        TwelveThirty = twelveThirty;
+        this.twelveThirty = twelveThirty;
     }
 
     public int getThirteen() {
-        return Thirteen;
+        return thirteen;
     }
 
     public void setThirteen(int thirteen) {
-        Thirteen = thirteen;
+        this.thirteen = thirteen;
     }
 
     public int getThirteenThirty() {
-        return ThirteenThirty;
+        return thirteenThirty;
     }
 
     public void setThirteenThirty(int thirteenThirty) {
-        ThirteenThirty = thirteenThirty;
+        this.thirteenThirty = thirteenThirty;
     }
 
     public int getFourteen() {
-        return Fourteen;
+        return fourteen;
     }
 
     public void setFourteen(int fourteen) {
-        Fourteen = fourteen;
+        this.fourteen = fourteen;
     }
 
     public int getFourteenThirty() {
-        return FourteenThirty;
+        return fourteenThirty;
     }
 
     public void setFourteenThirty(int fourteenThirty) {
-        FourteenThirty = fourteenThirty;
+        this.fourteenThirty = fourteenThirty;
     }
 
     public int getFifteen() {
-        return Fifteen;
+        return fifteen;
     }
 
     public void setFifteen(int fifteen) {
-        Fifteen = fifteen;
-    }
-
-    public int getFifteenThirty() {
-        return FifteenThirty;
-    }
-
-    public void setFifteenThirty(int fifteenThirty) {
-        FifteenThirty = fifteenThirty;
+        this.fifteen = fifteen;
     }
 
     @Override
     public String toString() {
-        return "TimeDistributionResponseModel{" +
+        return "TimeDistributionDto{" +
                 "month=" + month +
                 ", day=" + day +
-                ", Nine=" + Nine +
-                ", NineThirty=" + NineThirty +
-                ", Ten=" + Ten +
-                ", TenThirty=" + TenThirty +
-                ", Eleven=" + Eleven +
-                ", ElevenThirty=" + ElevenThirty +
-                ", Twelve=" + Twelve +
-                ", TwelveThirty=" + TwelveThirty +
-                ", Thirteen=" + Thirteen +
-                ", ThirteenThirty=" + ThirteenThirty +
-                ", Fourteen=" + Fourteen +
-                ", FourteenThirty=" + FourteenThirty +
-                ", Fifteen=" + Fifteen +
-                ", FifteenThirty=" + FifteenThirty +
+                ", nine=" + nine +
+                ", nineThirty=" + nineThirty +
+                ", ten=" + ten +
+                ", tenThirty=" + tenThirty +
+                ", eleven=" + eleven +
+                ", elevenThirty=" + elevenThirty +
+                ", twelve=" + twelve +
+                ", twelveThirty=" + twelveThirty +
+                ", thirteen=" + thirteen +
+                ", thirteenThirty=" + thirteenThirty +
+                ", fourteen=" + fourteen +
+                ", fourteenThirty=" + fourteenThirty +
+                ", fifteen=" + fifteen +
                 '}';
     }
 }
