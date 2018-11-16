@@ -57,8 +57,8 @@ localhost:8080
 ```json
 [
    {
-       "month": "11",
        "day": "12",
+       "month": "11",
        "revenue": "950"
    }
 ]
@@ -84,11 +84,11 @@ localhost:8080
 ]
 ```
 
-### Number of lost tickets for the day.
+### The time distribution of cars entering the complex (in periods of 30 minutes)
 
 **Definition**
 
-`GET /reports/<month>/<day>/lost`
+`GET /reports/<month>/<day>/entering`
 
 **Response**
 
@@ -98,9 +98,58 @@ localhost:8080
 ```json
 [
     {
-        "month": "11",
-        "day": "12",
-        "lost": "5"
+        "day": 12,
+        "month": 11,
+        "time": {
+            "09:00": 0,
+            "09:30": 0,
+            "10:30": 1,
+            "10:00": 0,
+            "13:00": 2,
+            "11:00": 1,
+            "12:00": 3,
+            "12:30": 1,
+            "14:00": 0,
+            "15:00": 1,
+            "11:30": 1,
+            "13:30": 0,
+            "14:30": 1
+        }
+    }
+]
+```
+
+### The time distribution of cars leaving the complex (in periods of 30 minutes)
+
+**Definition**
+
+`GET /reports/<month>/<day>/leaving`
+
+**Response**
+
+- `404 Not Found` if the report does not exist
+- `200 OK` on success
+
+```json
+[
+    {
+        "day": 12,
+        "month": 11,
+        "time": {
+            "09:00": 0,
+            "09:30": 1,
+            "10:30": 2,
+            "10:00": 0,
+            "13:00": 1,
+            "11:00": 1,
+            "12:00": 3,
+            "12:30": 1,
+            "14:00": 0,
+            "15:00": 3,
+            "11:30": 4,
+            "13:30": 0,
+            "14:30": 1
+        }
     }
 ]
 ```
@@ -127,6 +176,29 @@ localhost:8080
 ```
 
 Will return 0 if there are multiple modes.
+
+
+### Number of lost tickets for the day.
+
+**Definition**
+
+`GET /reports/<month>/<day>/lost`
+
+**Response**
+
+- `404 Not Found` if the report does not exist
+- `200 OK` on success
+
+```json
+[
+    {
+        "month": "11",
+        "day": "12",
+        "lost": "5"
+    }
+]
+```
+
 
 #
 ### Getting a single ticket.
