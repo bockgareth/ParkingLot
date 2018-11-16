@@ -82,6 +82,36 @@ public class ReportController {
     }
 
     /**
+     * GET (on 200 OK) request to retrieve a report summary for the time distribution
+     * of cars entering on a specific day.
+     * @param month the month for the report to be generated on.
+     * @param day the day for the report to be generated on.
+     * @return a TimeDistributionResponseModel as a response, output declared as json.
+     */
+    @GET
+    @Path("/{month}/{day}/entering")
+    @Produces(MediaType.APPLICATION_JSON)
+    public TimeDistributionResponseModel getDistributionByCarsEntering(@PathParam("month") int month, @PathParam("day") int day) {
+        TimeDistributionResponseModel returnValue = new TimeDistributionResponseModel();
+        return returnValue;
+    }
+
+    /**
+     * GET (on 200 OK) request to retrieve a report summary for the time distribution
+     * of cars leaving on a specific day.
+     * @param month the month for the report to be generated on.
+     * @param day the day for the report to be generated on.
+     * @return a TimeDistributionResponseModel as a response, output declared as json.
+     */
+    @GET
+    @Path("{month}/{day}/leaving")
+    @Produces(MediaType.APPLICATION_JSON)
+    public TimeDistributionResponseModel getDistributionByCarsLeaving(@PathParam("month") int month, @PathParam("day") int day) {
+        TimeDistributionResponseModel returnValue = new TimeDistributionResponseModel();
+        return returnValue;
+    }
+
+    /**
      * GET (on 200 OK) request to retrieve a report summary on how many
      * tickets were lost for the specified month and day.
      * @param month the month for the report to be generated on.
