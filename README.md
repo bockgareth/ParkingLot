@@ -22,7 +22,12 @@ Now that both images are cached, run
 startup.sh
 ```
 
-**To stop the application, simply run**
+Navigate to 
+```
+localhost:8080/tickets
+```
+
+To stop the application, simply run
 ```
 shutdown.sh
 ```
