@@ -21,7 +21,7 @@ public class ParkingLotApplication extends Application {
     public ParkingLotApplication() {
         Flyway flyway = Flyway
                             .configure()
-                            .dataSource("jdbc:mysql://localhost:3306/parking_lot", "root", "password")
+                            .dataSource("jdbc:mysql://database:3306/parking-lot", "root", "password")
                             .load();
 
         flyway.migrate();
