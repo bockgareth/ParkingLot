@@ -19,11 +19,14 @@ echo "done"
 # Run a container with a MySQL instance and attach it to our VPN
 echo "Starting database instance..."
 docker container run -d --network parking-lot-network --name database -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=parking-lot mysql:8.0.13
+# Allow the container some breathing before kicking off the next deployment
+sleep 3
 echo "done"
 
 # Run a container with our web application instance in it and attach it to our VPN
 echo "Starting web application instance..."
 docker container run -d --network parking-lot-network --name parking-lot -p 8080:8080 garethbock/parking-lot
+sleep 3
 echo "done"
 echo "Navigate to localhost:8080/tickets or read the documentation on the available routes"
 echo "To shutdown the containers, simply run shutdown.sh"
