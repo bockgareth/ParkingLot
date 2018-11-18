@@ -1,0 +1,23 @@
+version: "3"
+
+services:
+
+   parking-lot:
+      image: garethbock/parking-lot
+      networks:
+         - parking-lot-network
+      ports:
+         - 8080:8080
+      depends_on:
+         - database
+
+   database:
+      image: mysql:8.0.13
+      networks:
+         - parking-lot-network
+      environment:
+         - MYSQL_ROOT_PASSWORD=password
+         - MYSQL_DATABASE=parking-lot
+
+networks:
+   parking-lot-network:
