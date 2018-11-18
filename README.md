@@ -3,7 +3,55 @@
 
 Future Gadget Laboratories are designing a new parking lot system for all parking lot systems within Japan. This will allow the company to track the revenue generated and also give a little bit of insight into future opportunities within the parking industry.
 
-### Running the Application
+### Running the Application through:
+# Docker 
+**(Recommended)**
+
+Pull the parking lot image from DockerHub.
+```
+docker image pull garethbock/parking-lot
+```
+
+Pull a mysql image form DockerHub.
+```
+docker image pull mysql:8.0.13
+```
+
+Now that both images are cached, run
+```
+startup.sh
+```
+
+**To stop the application, simply run**
+```
+shutdown.sh
+```
+
+# Docker Compose
+
+**(Unstable)**
+
+To start the application with docker compose, run
+```
+docker-compose up
+```
+
+### 500 Internal error
+The developers of docker have stated that docker was not designed to wait for certain containers to be ready before 
+deploying new containers. The developers also mention that docker is not suitable for production grade systems that do require this functionality. 
+However, features like this come packages with applications such as Kubernetes, where clients have the ability to check 
+the health of their containers.
+
+This application uses flyway database migrations in order to migrate the database to the new container. Flyway may
+attempt to make a database migration while the database container is not ready, thus it will throw an exception.
+In order to fix this issue, simply run `shutdown.sh` followed by `startup.sh`, or if using docker compose, rerun `docker-compose up`.
+
+For more information, visit: `https://docs.docker.com/compose/startup-order/`
+
+## Maven
+**(Deprecated)**
+
+Configure `application.properties` to your preferred database schema.
 
 Build the project.
 
@@ -19,7 +67,7 @@ mvn tomcat7:run
 
 Navigate to 
 ```
-localhost:8080
+localhost:8080/tickets
 ```
 
 ## Usage
@@ -37,8 +85,8 @@ localhost:8080
 ```json
 [
     {
-        "month": "11",
-        "revenue": "15000"
+        "month": 11,
+        "revenue": 15000
     }
 ]
 ```
@@ -57,9 +105,9 @@ localhost:8080
 ```json
 [
    {
-       "day": "12",
-       "month": "11",
-       "revenue": "950"
+       "day": 12,
+       "month": 11,
+       "revenue": 950
    }
 ]
 ```
@@ -78,8 +126,8 @@ localhost:8080
 ```json
 [
     {
-        "week": "46",
-        "revenue": "1260"
+        "week": 46,
+        "revenue": 1260
     }
 ]
 ```
@@ -98,22 +146,22 @@ localhost:8080
 ```json
 [
     {
-        "day": "12",
-        "month": "11",
+        "day": 12,
+        "month": 11,
         "time": {
-            "09:00": "0",
-            "09:30": "0",
-            "10:30": "1",
-            "10:00": "0",
-            "13:00": "2",
-            "11:00": "1",
-            "12:00": "3",
-            "12:30": "1",
-            "14:00": "0",
-            "15:00": "1",
-            "11:30": "1",
-            "13:30": "0",
-            "14:30": "1"
+            "09:00": 0,
+            "09:30": 0,
+            "10:30": 1,
+            "10:00": 0,
+            "13:00": 2,
+            "11:00": 1,
+            "12:00": 3,
+            "12:30": 1,
+            "14:00": 0,
+            "15:00": 1,
+            "11:30": 1,
+            "13:30": 0,
+            "14:30": 1
         }
     }
 ]
@@ -133,22 +181,22 @@ localhost:8080
 ```json
 [
     {
-        "day": "12",
-        "month": "11",
+        "day": 12,
+        "month": 11,
         "time": {
-            "09:00": "0",
-            "09:30": "1",
-            "10:30": "2",
-            "10:00": "0",
-            "13:00": "1",
-            "11:00": "1",
-            "12:00": "3",
-            "12:30": "1",
-            "14:00": "0",
-            "15:00": "3",
-            "11:30": "4",
-            "13:30": "0",
-            "14:30": "1"
+            "09:00": 0,
+            "09:30": 1,
+            "10:30": 2,
+            "10:00": 0,
+            "13:00": 1,
+            "11:00": 1,
+            "12:00": 3,
+            "12:30": 1,
+            "14:00": 0,
+            "15:00": 3,
+            "11:30": 4,
+            "13:30": 0,
+            "14:30": 1
         }
     }
 ]
@@ -168,9 +216,9 @@ localhost:8080
 ```json
 [
     {
-        "month": "11",
-        "day": "12",
-        "mode": "30"
+        "month": 11,
+        "day": 12,
+        "mode": 30
     }
 ]
 ```
@@ -192,9 +240,9 @@ Will return 0 if there are multiple modes.
 ```json
 [
     {
-        "month": "11",
-        "day": "12",
-        "lost": "5"
+        "month": 11,
+        "day": 12,
+        "lost": 5
     }
 ]
 ```
