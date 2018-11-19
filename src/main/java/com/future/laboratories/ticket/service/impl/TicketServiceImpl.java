@@ -1,7 +1,7 @@
 package com.future.laboratories.ticket.service.impl;
 
 import com.future.laboratories.domain.Fee;
-import com.future.laboratories.domain.FeeStructure;
+import com.future.laboratories.domain.impl.FeeStructureImpl;
 import com.future.laboratories.ticket.entity.TicketEntity;
 import com.future.laboratories.ticket.service.TicketService;
 import com.future.laboratories.ticket.dao.TicketDao;
@@ -120,7 +120,7 @@ public class TicketServiceImpl implements TicketService {
         feeList.add(new Fee(120, 239, 50));
         feeList.add(new Fee(240, 100));
 
-        FeeStructure fees = new FeeStructure(150, feeList);
+        FeeStructureImpl fees = new FeeStructureImpl(150, feeList);
 
         if (ticket.isTicketLost()) {
             return fees.getLostFee();
@@ -135,7 +135,7 @@ public class TicketServiceImpl implements TicketService {
      * @param m the time difference in minutes.
      * @return the payment due.
      */
-    private int calculateMinuteDifferenceAmountDue(FeeStructure structure, long m) {
+    private int calculateMinuteDifferenceAmountDue(FeeStructureImpl structure, long m) {
         return structure.calculateFee(m);
     }
 
