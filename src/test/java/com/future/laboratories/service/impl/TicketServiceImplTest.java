@@ -1,17 +1,15 @@
 package com.future.laboratories.service.impl;
 
-import com.future.laboratories.entity.TicketEntity;
-import com.future.laboratories.shared.dao.TicketDao;
-import com.future.laboratories.shared.dao.impl.TicketDaoImpl;
-import com.future.laboratories.shared.dto.ReportDto;
-import com.future.laboratories.shared.dto.TicketDto;
+import com.future.laboratories.ticket.entity.TicketEntity;
+import com.future.laboratories.ticket.dao.impl.TicketDaoImpl;
+import com.future.laboratories.ticket.dto.TicketDto;
+import com.future.laboratories.ticket.service.impl.TicketServiceImpl;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.stubbing.OngoingStubbing;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -20,7 +18,6 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 import static org.mockito.Matchers.anyInt;
-import static org.mockito.Matchers.anyObject;
 import static org.mockito.Mockito.when;
 
 public class TicketServiceImplTest {
@@ -34,14 +31,12 @@ public class TicketServiceImplTest {
     TicketEntity ticketEntity;
     TicketDto ticketDto;
 
-    final int TICKET_ID = 1;
-
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
 
         ticketEntity = new TicketEntity();
-        ticketEntity.setTicketId(TICKET_ID);
+        ticketEntity.setId(1);
         ticketEntity.setTicketDate(LocalDate.of(2018, 11, 12));
         ticketEntity.setEnterTime(LocalTime.of(10, 30));
         ticketEntity.setExitTime(LocalTime.of(11, 30));
@@ -49,7 +44,7 @@ public class TicketServiceImplTest {
         ticketEntity.setAmountDue(20);
 
         ticketDto = new TicketDto();
-        ticketDto.setTicketId(TICKET_ID);
+        ticketDto.setId(1);
         ticketDto.setTicketDate(LocalDate.of(2018, 11, 12));
         ticketDto.setEnterTime(LocalTime.of(10, 30));
         ticketDto.setExitTime(LocalTime.of(11, 30));
@@ -64,7 +59,7 @@ public class TicketServiceImplTest {
         TicketDto ticketDto = ticketService.getTicketById(1);
 
         assertNotNull(ticketDto);
-        assertEquals(1, ticketDto.getTicketId());
+        assertEquals(1, ticketDto.getId());
     }
 
     @Test
@@ -74,7 +69,7 @@ public class TicketServiceImplTest {
         List<TicketDto> ticketDto = ticketService.getAllTickets();
 
         assertNotNull(ticketDto);
-        assertEquals(1, ticketDto.get(0).getTicketId());
+        assertEquals(1, ticketDto.get(0).getId());
     }
 
     @Test
@@ -91,7 +86,7 @@ public class TicketServiceImplTest {
         TicketDto ticket = ticketService.updateTicket(ticketDto);
 
         assertNotNull(ticket);
-        assertEquals(1, ticketDto.getTicketId());
+        assertEquals(1, ticketDto.getId());
     }
 
 }

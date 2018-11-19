@@ -1,7 +1,7 @@
 package com.future.laboratories;
 
-import com.future.laboratories.ui.controller.ReportController;
-import com.future.laboratories.ui.controller.TicketController;
+import com.future.laboratories.report.api.controller.impl.ReportControllerImpl;
+import com.future.laboratories.ticket.api.controller.impl.TicketControllerImpl;
 import org.flywaydb.core.Flyway;
 import javax.ws.rs.core.Application;
 import java.util.HashSet;
@@ -21,13 +21,13 @@ public class ParkingLotApplication extends Application {
     public ParkingLotApplication() {
         Flyway flyway = Flyway
                             .configure()
-                            .dataSource("jdbc:mysql://database:3306/parking-lot", "root", "password")
+                            .dataSource("jdbc:mysql://localhost:3306/parking_lot", "root", "password")
                             .load();
 
         flyway.migrate();
 
-        singletons.add(new TicketController());
-        singletons.add(new ReportController());
+        singletons.add(new TicketControllerImpl());
+        singletons.add(new ReportControllerImpl());
     }
 
     @Override

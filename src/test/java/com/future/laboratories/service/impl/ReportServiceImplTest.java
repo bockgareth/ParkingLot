@@ -1,9 +1,10 @@
 package com.future.laboratories.service.impl;
 
-import com.future.laboratories.entity.TicketEntity;
-import com.future.laboratories.shared.dao.impl.TicketDaoImpl;
-import com.future.laboratories.shared.dto.ReportDto;
-import com.future.laboratories.shared.dto.TimeDistributionDto;
+import com.future.laboratories.ticket.entity.TicketEntity;
+import com.future.laboratories.ticket.dao.impl.TicketDaoImpl;
+import com.future.laboratories.report.dto.ReportDto;
+import com.future.laboratories.report.dto.TimeDistributionDto;
+import com.future.laboratories.report.service.impl.ReportServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -34,7 +35,6 @@ public class ReportServiceImplTest {
         MockitoAnnotations.initMocks(this);
 
         ticketEntity = new TicketEntity();
-        ticketEntity.setTicketId(TICKET_ID);
         ticketEntity.setExitTime(LocalTime.of(11, 30));
         ticketEntity.setTicketDate(LocalDate.of(2018, 11, 12));
         ticketEntity.setEnterTime(LocalTime.of(10, 30));
