@@ -1,5 +1,6 @@
 package com.future.laboratories.api.controller;
 
+import com.future.laboratories.ticket.api.model.UpdatedTicketRequestModel;
 import com.future.laboratories.ticket.service.impl.TicketServiceImpl;
 import com.future.laboratories.ticket.dto.TicketDto;
 import com.future.laboratories.ticket.api.model.CreatedTicketResponseModel;
@@ -30,7 +31,7 @@ public class TicketControllerTest {
     TicketServiceImpl ticketService;
 
     TicketDto ticketDto;
-    TicketResponseModel updateModel;
+    UpdatedTicketRequestModel updateModel;
 
     final int TICKET_ID = 1;
 
@@ -46,7 +47,7 @@ public class TicketControllerTest {
         ticketDto.setTicketLost(false);
         ticketDto.setAmountDue(20);
 
-        updateModel = new TicketResponseModel();
+        updateModel = new UpdatedTicketRequestModel();
         updateModel.setExitTime(LocalTime.of(12, 30));
         updateModel.setTicketLost(false);
 

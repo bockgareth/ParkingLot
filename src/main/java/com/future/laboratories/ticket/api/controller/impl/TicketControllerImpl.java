@@ -1,6 +1,7 @@
 package com.future.laboratories.ticket.api.controller.impl;
 
 import com.future.laboratories.ticket.api.controller.TicketController;
+import com.future.laboratories.ticket.api.model.UpdatedTicketRequestModel;
 import com.future.laboratories.ticket.service.TicketService;
 import com.future.laboratories.ticket.service.impl.TicketServiceImpl;
 import com.future.laboratories.ticket.dto.TicketDto;
@@ -90,7 +91,7 @@ public class TicketControllerImpl implements TicketController {
     @Path("/tickets/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public TicketResponseModel updateTicket(@PathParam("id") int id, TicketResponseModel ticketRequestModel) {
+    public TicketResponseModel updateTicket(@PathParam("id") int id, UpdatedTicketRequestModel ticketRequestModel) {
         TicketResponseModel returnValue = new TicketResponseModel();
 
         TicketDto ticket = new TicketDto();
