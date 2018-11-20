@@ -19,11 +19,9 @@ public class ParkingLotApplication extends Application {
     private Set<Object> singletons = new HashSet<>();
 
     public ParkingLotApplication() {
-        Flyway flyway = Flyway
-                            .configure()
-                            .dataSource("jdbc:mysql://localhost:3306/parking_lot", "root", "password")
-                            .load();
-
+        Flyway flyway = new Flyway();
+        flyway.setDataSource("jdbc:hsqldb:mem:pool", "sa", "root");
+        flyway.clean();
         flyway.migrate();
 
         singletons.add(new TicketControllerImpl());
