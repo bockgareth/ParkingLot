@@ -89,6 +89,7 @@ public class TicketServiceImpl implements TicketService {
     public TicketDto updateTicket(TicketDto ticket) {
         TicketEntity ticketEntity = ticketDao.getTicketById(ticket.getId());
         ticketEntity.setExitTime(ticket.getExitTime());
+        ticketEntity.setTicketLost(ticket.isTicketLost());
 
         int amountDue = calculateAmountDue(ticketEntity);
 

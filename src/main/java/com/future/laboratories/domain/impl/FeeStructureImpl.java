@@ -18,7 +18,9 @@ public class FeeStructureImpl implements FeeStructure {
     public int calculateFee(long m) {
         int loopSize = this.boundaries.size() - 1;
         for (int i = 0; i < loopSize; i++) {
-            if (boundaries.get(i).getBegin() >= m && boundaries.get(i).getEnd() < m) return boundaries.get(i).getAmountDue();
+            if (m >= boundaries.get(i).getBegin() && m < boundaries.get(i).getEnd() ) {
+                return boundaries.get(i).getAmountDue();
+            }
         }
         return boundaries.get(loopSize).getAmountDue();
     }

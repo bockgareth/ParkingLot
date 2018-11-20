@@ -17,7 +17,7 @@ public class TicketDaoImpl extends JdbcDaoSupport implements TicketDao {
 
     private static final String GET_TICKET_BY_ID = "select * from ticket where id = ?";
     private static final String GET_ALL_TICKETS = "select * from ticket";
-    private static final String CREATE_TICKET = "insert into ticket (ticket_date, ticket_enter_time, ticket_exit_time) values (?, ?, ?)";
+    private static final String CREATE_TICKET = "insert into ticket (id, ticket_date, ticket_enter_time, ticket_exit_time) values (next value for id, ?, ?, ?)";
     private static final String UPDATE_TICKET = "update ticket set ticket_exit_time = ?, is_ticket_lost = ?, amount_due = ? where id = ?";
 
     /**
