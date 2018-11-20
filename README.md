@@ -326,8 +326,7 @@ amountDue, exitTime, and ticketLost will be nulled out until the ticket is close
 [
     {
         "enterTime": "13:00:00",
-        "ticketDate": "2018-12-12",
-        "ticketId": 3
+        "ticketDate": "2018-11-14",
     }
 ]
 ```
@@ -343,6 +342,7 @@ amountDue, exitTime, and ticketLost will be nulled out until the ticket is close
 ```json
 [
     {
+        "ticketDate": "2018-11-14",
         "exitTime": "14:00:00",
         "ticketLost": false
     }
