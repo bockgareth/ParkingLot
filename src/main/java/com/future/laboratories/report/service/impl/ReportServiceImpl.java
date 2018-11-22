@@ -223,6 +223,20 @@ public class ReportServiceImpl implements ReportService {
     }
 
     /**
+     *
+     * @param month the month for getting the required mode.
+     * @param day the day for getting the required mode.
+     * @return a ReportDto, containing the mode of the list.
+     */
+    public ReportDto getSpaceRanOut(int month, int day) {
+        ReportDto returnValue = new ReportDto();
+
+        returnValue.setSpaceRanOut(ticketDao.getNoSpaceCount());
+
+        return returnValue;
+    }
+
+    /**
      * Helper method to reduce a list to a single value. This
      * implementation sums up the values from a list.
      * @param values a list of values to be summed up.
