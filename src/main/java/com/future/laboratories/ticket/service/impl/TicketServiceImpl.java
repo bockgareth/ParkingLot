@@ -27,8 +27,7 @@ public class TicketServiceImpl implements TicketService {
      * com.future.laboratories.ticket.dao.impl.TicketDaoImpl to be injected.
      */
 
-    ApplicationContext ctx = new ClassPathXmlApplicationContext("databaseContext.xml");
-    TicketDao ticketDao = ctx.getBean("ticketDao", TicketDaoImpl.class);
+    TicketDao ticketDao = new TicketDaoImpl();
 
     private List<Fee> feeList;
     private FeeStructureImpl fees;
