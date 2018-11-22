@@ -16,4 +16,5 @@ public interface TicketDao {
     public void updateTicket(TicketEntity ticket);
     public List<TicketEntity> getAllTicketsByMonth(int month);
     public List<TicketEntity> getAllTicketsByDay(int month, int day);
+    public int getNoSpaceCount();
 }

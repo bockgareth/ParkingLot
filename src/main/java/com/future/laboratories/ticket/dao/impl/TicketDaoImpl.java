@@ -16,12 +16,16 @@ import java.util.List;
  */
 public class TicketDaoImpl implements TicketDao {
 
-    private static final String GET_TICKET_BY_ID = "select id, ticket_date, ticket_enter_time, ticket_exit_time, is_ticket_lost, amount_due from ticket where id = ?";
-    private static final String GET_ALL_TICKETS = "select id, ticket_date, ticket_enter_time, ticket_exit_time, is_ticket_lost, amount_due from ticket";
-    private static final String GET_ALL_TICKETS_BY_MONTH = "select id, ticket_date, ticket_enter_time, ticket_exit_time, is_ticket_lost, amount_due from ticket where month(ticket_date) = ?";
-    private static final String GET_ALL_TICKETS_BY_DAY = "select id, ticket_date, ticket_enter_time, ticket_exit_time, is_ticket_lost, amount_due from ticket where month(ticket_date) = ? and day(ticket_date) = ?";
-    private static final String CREATE_TICKET = "insert into ticket (id, ticket_date, ticket_enter_time, ticket_exit_time) values (next value for id, ?, ?, ?)";
-    private static final String UPDATE_TICKET = "update ticket set ticket_exit_time = ?, is_ticket_lost = ?, amount_due = ? where id = ?";
+    private final int lotSize = 5;
+    private int carsParkedCount = 0;
+    private int noSpaceCount = 0;
+
+    private final String GET_TICKET_BY_ID = "select id, ticket_date, ticket_enter_time, ticket_exit_time, is_ticket_lost, amount_due from ticket where id = ?";
+    private final String GET_ALL_TICKETS = "select id, ticket_date, ticket_enter_time, ticket_exit_time, is_ticket_lost, amount_due from ticket";
+    private final String GET_ALL_TICKETS_BY_MONTH = "select id, ticket_date, ticket_enter_time, ticket_exit_time, is_ticket_lost, amount_due from ticket where month(ticket_date) = ?";
+    private final String GET_ALL_TICKETS_BY_DAY = "select id, ticket_date, ticket_enter_time, ticket_exit_time, is_ticket_lost, amount_due from ticket where month(ticket_date) = ? and day(ticket_date) = ?";
+    private final String CREATE_TICKET = "insert into ticket (id, ticket_date, ticket_enter_time, ticket_exit_time) values (next value for id, ?, ?, ?)";
+    private final String UPDATE_TICKET = "update ticket set ticket_exit_time = ?, is_ticket_lost = ?, amount_due = ? where id = ?";
 
     private JdbcTemplate jdbcTemplate;
 
@@ -77,16 +81,33 @@ public class TicketDaoImpl implements TicketDao {
      * @param ticket a TicketEntity to be mapped to sql and inserted.
      */
     public void createTicket(TicketEntity ticket) {
-        jdbcTemplate.update(CREATE_TICKET, new Object[] {ticket.getTicketDate(), ticket.getEnterTime(), ticket.getExitTime()});
+        if (carsParkedCount < lotSize) {
+            jdbcTemplate.update(CREATE_TICKET, new Object[] {ticket.getTicketDate(), ticket.getEnterTime(), ticket.getExitTime()});
+            carsParkedCount++;
+        } else {
+            noSpaceCount++;
+            System.out.println(noSpaceCount);
+            throw new IllegalArgumentException("Parking lot is currently full.");
+        }
     }
 
     /**
      * Used to update a ticket was it is closed. Update statement
      * is made to a database.
-     * @param ticket a TicketEntity to be mapped to sql and updated.
+     * @param ticket a {@link TicketEntity} to be mapped to sql and updated.
      */
     public void updateTicket(TicketEntity ticket) {
+        carsParkedCount--;
         jdbcTemplate.update(UPDATE_TICKET, new Object[] {ticket.getExitTime(), ticket.isTicketLost(), ticket.getAmountDue(), ticket.getId()});
+    }
+
+
+    public int getNoSpaceCount() {
+        return noSpaceCount;
+    }
+
+    public void setNoSpaceCount(int noSpaceCount) {
+        this.noSpaceCount = noSpaceCount;
     }
 
     /**
