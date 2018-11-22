@@ -2,8 +2,9 @@ package com.future.laboratories.ticket.dao.impl;
 
 import com.future.laboratories.ticket.entity.TicketEntity;
 import com.future.laboratories.ticket.dao.TicketDao;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.support.JdbcDaoSupport;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,14 +14,25 @@ import java.util.List;
  * This class acts as the ticket data access object that generic
  * crud operations for ticket related queries.
  */
-public class TicketDaoImpl extends JdbcDaoSupport implements TicketDao {
+public class TicketDaoImpl implements TicketDao {
 
-    private static final String GET_TICKET_BY_ID = "select * from ticket where id = ?";
-    private static final String GET_ALL_TICKETS = "select * from ticket";
-    private static final String GET_ALL_TICKETS_BY_MONTH = "select * from ticket where month(ticket_date) = ?";
-    private static final String GET_ALL_TICKETS_BY_DAY = "select * from ticket where month(ticket_date) = ? and day(ticket_date) = ?";
+    private static final String GET_TICKET_BY_ID = "select id, ticket_date, ticket_enter_time, ticket_exit_time, is_ticket_lost, amount_due from ticket where id = ?";
+    private static final String GET_ALL_TICKETS = "select id, ticket_date, ticket_enter_time, ticket_exit_time, is_ticket_lost, amount_due from ticket";
+    private static final String GET_ALL_TICKETS_BY_MONTH = "select id, ticket_date, ticket_enter_time, ticket_exit_time, is_ticket_lost, amount_due from ticket where month(ticket_date) = ?";
+    private static final String GET_ALL_TICKETS_BY_DAY = "select id, ticket_date, ticket_enter_time, ticket_exit_time, is_ticket_lost, amount_due from ticket where month(ticket_date) = ? and day(ticket_date) = ?";
     private static final String CREATE_TICKET = "insert into ticket (id, ticket_date, ticket_enter_time, ticket_exit_time) values (next value for id, ?, ?, ?)";
     private static final String UPDATE_TICKET = "update ticket set ticket_exit_time = ?, is_ticket_lost = ?, amount_due = ? where id = ?";
+
+    private JdbcTemplate jdbcTemplate;
+
+    public TicketDaoImpl() {
+        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+        dataSource.setDriverClassName("org.hsqldb.jdbc.JDBCDriver");
+        dataSource.setUrl("jdbc:hsqldb:mem:pool");
+        dataSource.setUsername("sa");
+        dataSource.setPassword("root");
+        jdbcTemplate = new JdbcTemplate(dataSource);
+    }
 
     /**
      * Used to retrieve a single {@link TicketEntity} object based on its id.
@@ -29,7 +41,7 @@ public class TicketDaoImpl extends JdbcDaoSupport implements TicketDao {
      * from a SQL result set.
      */
     public TicketEntity getTicketById(int id) {
-        return this.getJdbcTemplate().queryForObject(GET_TICKET_BY_ID, new Object[] {id}, new TicketMapper());
+        return jdbcTemplate.queryForObject(GET_TICKET_BY_ID, new Object[] {id}, new TicketMapper());
     }
 
     /**
@@ -38,7 +50,7 @@ public class TicketDaoImpl extends JdbcDaoSupport implements TicketDao {
      * from a SQL result set.
      */
     public List<TicketEntity> getAllTickets() {
-        return this.getJdbcTemplate().query(GET_ALL_TICKETS, new TicketMapper());
+        return jdbcTemplate.query(GET_ALL_TICKETS, new TicketMapper());
     }
 
     /**
@@ -47,7 +59,7 @@ public class TicketDaoImpl extends JdbcDaoSupport implements TicketDao {
      * @return a {@link List} of {@link TicketEntity} objects.
      */
     public List<TicketEntity> getAllTicketsByMonth(int month) {
-        return this.getJdbcTemplate().query(GET_ALL_TICKETS_BY_MONTH, new Object[]{month}, new TicketMapper());
+        return jdbcTemplate.query(GET_ALL_TICKETS_BY_MONTH, new Object[]{month}, new TicketMapper());
     }
 
     /**
@@ -57,7 +69,7 @@ public class TicketDaoImpl extends JdbcDaoSupport implements TicketDao {
      * @return a {@link List} of {@link TicketEntity} objects.
      */
     public List<TicketEntity> getAllTicketsByDay(int month, int day) {
-        return this.getJdbcTemplate().query(GET_ALL_TICKETS_BY_DAY, new Object[]{month, day}, new TicketMapper());
+        return jdbcTemplate.query(GET_ALL_TICKETS_BY_DAY, new Object[]{month, day}, new TicketMapper());
     }
 
     /**
@@ -65,7 +77,7 @@ public class TicketDaoImpl extends JdbcDaoSupport implements TicketDao {
      * @param ticket a TicketEntity to be mapped to sql and inserted.
      */
     public void createTicket(TicketEntity ticket) {
-        this.getJdbcTemplate().update(CREATE_TICKET, new Object[] {ticket.getTicketDate(), ticket.getEnterTime(), ticket.getExitTime()});
+        jdbcTemplate.update(CREATE_TICKET, new Object[] {ticket.getTicketDate(), ticket.getEnterTime(), ticket.getExitTime()});
     }
 
     /**
@@ -74,7 +86,7 @@ public class TicketDaoImpl extends JdbcDaoSupport implements TicketDao {
      * @param ticket a TicketEntity to be mapped to sql and updated.
      */
     public void updateTicket(TicketEntity ticket) {
-        this.getJdbcTemplate().update(UPDATE_TICKET, new Object[] {ticket.getExitTime(), ticket.isTicketLost(), ticket.getAmountDue(), ticket.getId()});
+        jdbcTemplate.update(UPDATE_TICKET, new Object[] {ticket.getExitTime(), ticket.isTicketLost(), ticket.getAmountDue(), ticket.getId()});
     }
 
     /**

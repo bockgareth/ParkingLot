@@ -14,7 +14,6 @@ public interface TicketDao {
     public List<TicketEntity> getAllTickets();
     public void createTicket(TicketEntity ticket);
     public void updateTicket(TicketEntity ticket);
-    public JdbcTemplate getJdbcTemplate();
     public List<TicketEntity> getAllTicketsByMonth(int month);
     public List<TicketEntity> getAllTicketsByDay(int month, int day);
 }
