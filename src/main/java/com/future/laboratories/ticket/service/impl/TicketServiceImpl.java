@@ -30,6 +30,20 @@ public class TicketServiceImpl implements TicketService {
     ApplicationContext ctx = new ClassPathXmlApplicationContext("databaseContext.xml");
     TicketDao ticketDao = ctx.getBean("ticketDao", TicketDaoImpl.class);
 
+    private List<Fee> feeList;
+    private FeeStructureImpl fees;
+
+    public TicketServiceImpl() {
+        feeList = new ArrayList<>();
+        feeList.add(new Fee(0, 29, 10));
+        feeList.add(new Fee(30, 59, 20));
+        feeList.add(new Fee(60, 119, 30));
+        feeList.add(new Fee(120, 239, 50));
+        feeList.add(new Fee(240, 100));
+
+        fees = new FeeStructureImpl(150, feeList);
+    }
+
     /**
      * Used to retrieve a single TicketEntity object based on its id
      * from a ticket dao.
@@ -96,7 +110,7 @@ public class TicketServiceImpl implements TicketService {
         ticketEntity.setAmountDue(amountDue);
 
         if (ticket.getTicketDate().getDayOfYear() != ticketEntity.getTicketDate().getDayOfYear()) {
-            ticketEntity.setAmountDue(100);
+            ticketEntity.setAmountDue(fees.getLostFee());
         }
 
         ticketDao.updateTicket(ticketEntity);
@@ -114,15 +128,6 @@ public class TicketServiceImpl implements TicketService {
      * @return the payment due if <calculateMinuteDifferenceAmountDue> is reached.
      */
     private int calculateAmountDue(TicketEntity ticket) {
-        List<Fee> feeList = new ArrayList<>();
-        feeList.add(new Fee(0, 29, 10));
-        feeList.add(new Fee(30, 59, 20));
-        feeList.add(new Fee(60, 119, 30));
-        feeList.add(new Fee(120, 239, 50));
-        feeList.add(new Fee(240, 100));
-
-        FeeStructureImpl fees = new FeeStructureImpl(150, feeList);
-
         if (ticket.isTicketLost()) {
             return fees.getLostFee();
         }
