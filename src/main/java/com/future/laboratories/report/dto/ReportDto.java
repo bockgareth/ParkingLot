@@ -11,6 +11,7 @@ public class ReportDto {
     private int revenue;
     private int lost;
     private int mode;
+    private int spaceRanOut;
 
     public ReportDto() {
     }
@@ -55,6 +56,14 @@ public class ReportDto {
         this.mode = mode;
     }
 
+    public int getSpaceRanOut() {
+        return spaceRanOut;
+    }
+
+    public void setSpaceRanOut(int spaceRanOut) {
+        this.spaceRanOut = spaceRanOut;
+    }
+
     @Override
     public String toString() {
         return "ReportDto{" +
@@ -63,6 +72,7 @@ public class ReportDto {
                 ", revenue=" + revenue +
                 ", lost=" + lost +
                 ", mode=" + mode +
+                ", spaceRanOut=" + spaceRanOut +
                 '}';
     }
 }

@@ -26,7 +26,7 @@ public class ReportControllerImpl implements ReportController {
      * GET (on 200 OK) request to retrieve a report summary for the specified
      * month.
      * @param month the month for the report to be generated on.
-     * @return a RevenueMonthResponseModel as a response, output declared as json.
+     * @return a {@link RevenueMonthResponseModel} as a response, output declared as json.
      */
     @GET
     @Path("/{month}")
@@ -47,7 +47,7 @@ public class ReportControllerImpl implements ReportController {
      * month and day.
      * @param month the month for the report to be generated on.
      * @param day the day for the report to be generated on.
-     * @return a RevenueMonthDayResponseModel as a response, output declared as json.
+     * @return a {@link RevenueMonthDayResponseModel} as a response, output declared as json.
      */
     @GET
     @Path("/{month}/{day}")
@@ -67,7 +67,7 @@ public class ReportControllerImpl implements ReportController {
     /**
      * GET (on 200 OK) request to retrieve a report summary for the specified week.
      * @param week the week for the report to be generated on.
-     * @return a RevenueWeekResponseModel as a response, output declared as json.
+     * @return a {@link RevenueWeekResponseModel} as a response, output declared as json.
      */
     @GET
     @Path("/week/{week}")
@@ -88,7 +88,7 @@ public class ReportControllerImpl implements ReportController {
      * of cars entering on a specific day.
      * @param month the month for the report to be generated on.
      * @param day the day for the report to be generated on.
-     * @return a TimeDistributionResponseModel as a response, output declared as json.
+     * @return a {@link TimeDistributionResponseModel} as a response, output declared as json.
      */
     @GET
     @Path("/{month}/{day}/entering")
@@ -110,7 +110,7 @@ public class ReportControllerImpl implements ReportController {
      * of cars leaving on a specific day.
      * @param month the month for the report to be generated on.
      * @param day the day for the report to be generated on.
-     * @return a TimeDistributionResponseModel as a response, output declared as json.
+     * @return a {@link TimeDistributionResponseModel} as a response, output declared as json.
      */
     @GET
     @Path("{month}/{day}/leaving")
@@ -132,7 +132,7 @@ public class ReportControllerImpl implements ReportController {
      * tickets were lost for the specified month and day.
      * @param month the month for the report to be generated on.
      * @param day the day for the report to be generated on.
-     * @return a LostTicketCountResponseModel as a response, output declared as json.
+     * @return a {@link LostTicketCountResponseModel} as a response, output declared as json.
      */
     @GET
     @Path("/{month}/{day}/lost")
@@ -154,7 +154,7 @@ public class ReportControllerImpl implements ReportController {
      * of payments due for the specified month and day.
      * @param month the month for the report to be generated on.
      * @param day the day for the report to be generated on.
-     * @return a PaymentModeResponseModel as a response, output declared as json. Only supports
+     * @return a {@link PaymentModeResponseModel} as a response, output declared as json. Only supports
      * one mode. If there are mode conflicts, response will result in a 0.
      */
     @GET
@@ -172,4 +172,26 @@ public class ReportControllerImpl implements ReportController {
         return returnValue;
     }
 
+    /**
+     * GET (on 200 OK) request to retrieve a report summary with number of
+     * times the parking lot ran out of space during a specific day.
+     * @param month the month for the report to be generated on.
+     * @param day the day for the report to be generated on.
+     * @return a {@link PaymentModeResponseModel} as a response, output declared as json. Only supports
+     * one mode. If there are mode conflicts, response will result in a 0.
+     */
+    @GET
+    @Path("/{month}/{day}/space")
+    @Produces(MediaType.APPLICATION_JSON)
+    public SpaceRanOutResponseModel getSpaceRanOut(@PathParam("month") int month, @PathParam("day") int day) {
+        SpaceRanOutResponseModel returnValue = new SpaceRanOutResponseModel();
+
+        ReportDto reportDto = reportService.getSpaceRanOut(month, day);
+
+        returnValue.setMonth(month);
+        returnValue.setDay(day);
+        returnValue.setNoSpaceCount(reportDto.getSpaceRanOut());
+
+        return returnValue;
+    }
 }

@@ -11,4 +11,6 @@ public interface ReportController {
     public TimeDistributionResponseModel getDistributionByCarsLeaving(int month, int day);
     public LostTicketCountResponseModel getLostTicketCount(int month, int day);
     public PaymentModeResponseModel getAmountDueMode(int month, int day);
+    public SpaceRanOutResponseModel getSpaceRanOut(int month, int day);
+
 }
