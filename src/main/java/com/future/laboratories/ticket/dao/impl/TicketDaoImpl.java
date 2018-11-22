@@ -17,11 +17,13 @@ public class TicketDaoImpl extends JdbcDaoSupport implements TicketDao {
 
     private static final String GET_TICKET_BY_ID = "select * from ticket where id = ?";
     private static final String GET_ALL_TICKETS = "select * from ticket";
+    private static final String GET_ALL_TICKETS_BY_MONTH = "select * from ticket where month(ticket_date) = ?";
+    private static final String GET_ALL_TICKETS_BY_DAY = "select * from ticket where month(ticket_date) = ? and day(ticket_date) = ?";
     private static final String CREATE_TICKET = "insert into ticket (id, ticket_date, ticket_enter_time, ticket_exit_time) values (next value for id, ?, ?, ?)";
     private static final String UPDATE_TICKET = "update ticket set ticket_exit_time = ?, is_ticket_lost = ?, amount_due = ? where id = ?";
 
     /**
-     * Used to retrieve a single TicketEntity object based on its id.
+     * Used to retrieve a single {@link TicketEntity} object based on its id.
      * @param id the id of a ticket that will be requested.
      * @return a TicketEntity that has been mapped to a Java object
      * from a SQL result set.
@@ -37,6 +39,25 @@ public class TicketDaoImpl extends JdbcDaoSupport implements TicketDao {
      */
     public List<TicketEntity> getAllTickets() {
         return this.getJdbcTemplate().query(GET_ALL_TICKETS, new TicketMapper());
+    }
+
+    /**
+     * Query to get all the tickets by month.
+     * @param month the specified month
+     * @return a {@link List} of {@link TicketEntity} objects.
+     */
+    public List<TicketEntity> getAllTicketsByMonth(int month) {
+        return this.getJdbcTemplate().query(GET_ALL_TICKETS_BY_MONTH, new Object[]{month}, new TicketMapper());
+    }
+
+    /**
+     * Query to get all the tickets by month and day
+     * @param month the specified month.
+     * @param day the specified day.
+     * @return a {@link List} of {@link TicketEntity} objects.
+     */
+    public List<TicketEntity> getAllTicketsByDay(int month, int day) {
+        return this.getJdbcTemplate().query(GET_ALL_TICKETS_BY_DAY, new Object[]{month, day}, new TicketMapper());
     }
 
     /**
