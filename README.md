@@ -4,59 +4,7 @@
 Future Gadget Laboratories are designing a new parking lot system for all parking lot systems within Japan. This will allow the company to track the revenue generated and also give a little bit of insight into future opportunities within the parking industry.
 
 ### Running the Application through:
-# Docker 
-**(Recommended)**
-
-Pull the parking lot image from DockerHub.
-```
-docker image pull garethbock/parking-lot
-```
-
-Pull a mysql image form DockerHub.
-```
-docker image pull mysql:8.0.13
-```
-
-Now that both images are cached, run
-```
-startup.sh
-```
-
-Navigate to 
-```
-localhost:8080/tickets
-```
-
-To stop the application, simply run
-```
-shutdown.sh
-```
-
-# Docker Compose
-
-**(Unstable)**
-
-To start the application with docker compose, run
-```
-docker-compose up
-```
-
-### 500 Internal error
-The developers of docker have stated that docker was not designed to wait for certain containers to be ready before 
-deploying new containers. The developers also mention that docker is not suitable for production grade systems that do require this functionality. 
-However, features like this come packages with applications such as Kubernetes, where clients have the ability to check 
-the health of their containers.
-
-This application uses flyway database migrations in order to migrate the database to the new container. Flyway may
-attempt to make a database migration while the database container is not ready, thus it will throw an exception.
-In order to fix this issue, simply run `shutdown.sh` followed by `startup.sh`, or if using docker compose, rerun `docker-compose up`.
-
-For more information, visit: `https://docs.docker.com/compose/startup-order/`
-
 ## Maven
-**(Deprecated)**
-
-Configure `application.properties` to your preferred database schema.
 
 Build the project.
 
@@ -252,6 +200,27 @@ Will return 0 if there are multiple modes.
 ]
 ```
 
+### Number of the parking lot ran out of space for the day.
+
+**Definition**
+
+`GET /reports/<month>/<day>/space`
+
+**Response**
+
+- `404 Not Found` if the report does not exist
+- `200 OK` on success
+
+```json
+[
+    {
+        "month": 11,
+        "day": 12,
+        "noSpaceCount": 20
+    }
+]
+```
+
 
 #
 ### Getting a single ticket.
@@ -326,7 +295,7 @@ amountDue, exitTime, and ticketLost will be nulled out until the ticket is close
 [
     {
         "enterTime": "13:00:00",
-        "ticketDate": "2018-11-14",
+        "ticketDate": "2018-11-14"
     }
 ]
 ```
