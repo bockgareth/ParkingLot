@@ -37,14 +37,12 @@ public class ReportServiceImpl implements ReportService {
     public ReportDto getReportByMonth(int month) {
         ReportDto returnValue = new ReportDto();
 
-        List<TicketEntity> tickets = ticketDao.getAllTickets();
+        List<TicketEntity> tickets = ticketDao.getAllTicketsByMonth(month);
 
         List<Integer> values = new ArrayList<>();
 
         for (TicketEntity ticket: tickets) {
-            if (ticket.getTicketDate().getMonth().getValue() == month) {
-                values.add(ticket.getAmountDue());
-            }
+            values.add(ticket.getAmountDue());
         }
 
         returnValue.setRevenue(reduce(values));
@@ -65,14 +63,12 @@ public class ReportServiceImpl implements ReportService {
     public ReportDto getReportByDay(int month, int day) {
         ReportDto returnValue = new ReportDto();
 
-        List<TicketEntity> tickets = ticketDao.getAllTickets();
+        List<TicketEntity> tickets = ticketDao.getAllTicketsByDay(month, day);
 
         List<Integer> values = new ArrayList<>();
 
         for (TicketEntity ticket: tickets) {
-            if (ticket.getTicketDate().getMonth().getValue() == month && ticket.getTicketDate().getDayOfMonth() == day) {
-                values.add(ticket.getAmountDue());
-            }
+            values.add(ticket.getAmountDue());
         }
 
         returnValue.setRevenue(reduce(values));
@@ -119,24 +115,22 @@ public class ReportServiceImpl implements ReportService {
     public TimeDistributionDto getDistributionByCarEntering(int month, int day) {
         TimeDistributionDto returnValue = new TimeDistributionDto();
 
-        List<TicketEntity> tickets = ticketDao.getAllTickets();
+        List<TicketEntity> tickets = ticketDao.getAllTicketsByDay(month, day);
 
         for (TicketEntity ticket: tickets) {
-            if (ticket.getTicketDate().getMonth().getValue() == month && ticket.getTicketDate().getDayOfMonth() == day) {
-                if (ticket.getEnterTime().isAfter(LocalTime.parse("09:00:00")) && ticket.getEnterTime().isBefore(LocalTime.parse("09:29:00"))) returnValue.setNine(returnValue.getNine() + 1);
-                if (ticket.getEnterTime().isAfter(LocalTime.parse("09:30:00")) && ticket.getEnterTime().isBefore(LocalTime.parse("09:59:00"))) returnValue.setNineThirty(returnValue.getNineThirty() + 1);
-                if (ticket.getEnterTime().isAfter(LocalTime.parse("10:00:00")) && ticket.getEnterTime().isBefore(LocalTime.parse("10:29:00"))) returnValue.setTen(returnValue.getTen() + 1);
-                if (ticket.getEnterTime().isAfter(LocalTime.parse("10:30:00")) && ticket.getEnterTime().isBefore(LocalTime.parse("10:59:00"))) returnValue.setTenThirty(returnValue.getTenThirty() + 1);
-                if (ticket.getEnterTime().isAfter(LocalTime.parse("11:00:00")) && ticket.getEnterTime().isBefore(LocalTime.parse("11:29:00"))) returnValue.setEleven(returnValue.getEleven() + 1);
-                if (ticket.getEnterTime().isAfter(LocalTime.parse("11:30:00")) && ticket.getEnterTime().isBefore(LocalTime.parse("11:59:00"))) returnValue.setElevenThirty(returnValue.getElevenThirty() + 1);
-                if (ticket.getEnterTime().isAfter(LocalTime.parse("12:00:00")) && ticket.getEnterTime().isBefore(LocalTime.parse("12:29:00"))) returnValue.setTwelve(returnValue.getTwelve() + 1);
-                if (ticket.getEnterTime().isAfter(LocalTime.parse("12:30:00")) && ticket.getEnterTime().isBefore(LocalTime.parse("12:59:00"))) returnValue.setTwelveThirty(returnValue.getTwelveThirty() + 1);
-                if (ticket.getEnterTime().isAfter(LocalTime.parse("13:00:00")) && ticket.getEnterTime().isBefore(LocalTime.parse("13:29:00"))) returnValue.setThirteen(returnValue.getThirteen() + 1);
-                if (ticket.getEnterTime().isAfter(LocalTime.parse("13:30:00")) && ticket.getEnterTime().isBefore(LocalTime.parse("13:59:00"))) returnValue.setThirteenThirty(returnValue.getThirteenThirty() + 1);
-                if (ticket.getEnterTime().isAfter(LocalTime.parse("14:00:00")) && ticket.getEnterTime().isBefore(LocalTime.parse("14:29:00"))) returnValue.setFourteen(returnValue.getFourteen() + 1);
-                if (ticket.getEnterTime().isAfter(LocalTime.parse("14:30:00")) && ticket.getEnterTime().isBefore(LocalTime.parse("14:59:00"))) returnValue.setFourteenThirty(returnValue.getFourteenThirty() + 1);
-                if (ticket.getEnterTime().isAfter(LocalTime.parse("15:00:00")) && ticket.getEnterTime().isBefore(LocalTime.parse("15:29:00"))) returnValue.setFifteen(returnValue.getFifteen() + 1);
-            }
+            if (ticket.getEnterTime().isAfter(LocalTime.parse("09:00:00")) && ticket.getEnterTime().isBefore(LocalTime.parse("09:29:00"))) returnValue.setNine(returnValue.getNine() + 1);
+            if (ticket.getEnterTime().isAfter(LocalTime.parse("09:30:00")) && ticket.getEnterTime().isBefore(LocalTime.parse("09:59:00"))) returnValue.setNineThirty(returnValue.getNineThirty() + 1);
+            if (ticket.getEnterTime().isAfter(LocalTime.parse("10:00:00")) && ticket.getEnterTime().isBefore(LocalTime.parse("10:29:00"))) returnValue.setTen(returnValue.getTen() + 1);
+            if (ticket.getEnterTime().isAfter(LocalTime.parse("10:30:00")) && ticket.getEnterTime().isBefore(LocalTime.parse("10:59:00"))) returnValue.setTenThirty(returnValue.getTenThirty() + 1);
+            if (ticket.getEnterTime().isAfter(LocalTime.parse("11:00:00")) && ticket.getEnterTime().isBefore(LocalTime.parse("11:29:00"))) returnValue.setEleven(returnValue.getEleven() + 1);
+            if (ticket.getEnterTime().isAfter(LocalTime.parse("11:30:00")) && ticket.getEnterTime().isBefore(LocalTime.parse("11:59:00"))) returnValue.setElevenThirty(returnValue.getElevenThirty() + 1);
+            if (ticket.getEnterTime().isAfter(LocalTime.parse("12:00:00")) && ticket.getEnterTime().isBefore(LocalTime.parse("12:29:00"))) returnValue.setTwelve(returnValue.getTwelve() + 1);
+            if (ticket.getEnterTime().isAfter(LocalTime.parse("12:30:00")) && ticket.getEnterTime().isBefore(LocalTime.parse("12:59:00"))) returnValue.setTwelveThirty(returnValue.getTwelveThirty() + 1);
+            if (ticket.getEnterTime().isAfter(LocalTime.parse("13:00:00")) && ticket.getEnterTime().isBefore(LocalTime.parse("13:29:00"))) returnValue.setThirteen(returnValue.getThirteen() + 1);
+            if (ticket.getEnterTime().isAfter(LocalTime.parse("13:30:00")) && ticket.getEnterTime().isBefore(LocalTime.parse("13:59:00"))) returnValue.setThirteenThirty(returnValue.getThirteenThirty() + 1);
+            if (ticket.getEnterTime().isAfter(LocalTime.parse("14:00:00")) && ticket.getEnterTime().isBefore(LocalTime.parse("14:29:00"))) returnValue.setFourteen(returnValue.getFourteen() + 1);
+            if (ticket.getEnterTime().isAfter(LocalTime.parse("14:30:00")) && ticket.getEnterTime().isBefore(LocalTime.parse("14:59:00"))) returnValue.setFourteenThirty(returnValue.getFourteenThirty() + 1);
+            if (ticket.getEnterTime().isAfter(LocalTime.parse("15:00:00")) && ticket.getEnterTime().isBefore(LocalTime.parse("15:29:00"))) returnValue.setFifteen(returnValue.getFifteen() + 1);
         }
 
         returnValue.setTimeMap(setTimeMap(returnValue));
@@ -156,26 +150,22 @@ public class ReportServiceImpl implements ReportService {
     public TimeDistributionDto getDistributionByCarLeaving(int month, int day) {
         TimeDistributionDto returnValue = new TimeDistributionDto();
 
-        List<TicketEntity> tickets = ticketDao.getAllTickets();
-
-        Map<String, Integer> time = new HashMap<>();
+        List<TicketEntity> tickets = ticketDao.getAllTicketsByDay(month, day);
 
         for (TicketEntity ticket: tickets) {
-            if (ticket.getTicketDate().getMonth().getValue() == month && ticket.getTicketDate().getDayOfMonth() == day) {
-                if (ticket.getExitTime().isAfter(LocalTime.parse("09:00:00")) && ticket.getExitTime().isBefore(LocalTime.parse("09:29:00"))) returnValue.setNine(returnValue.getNine() + 1);
-                if (ticket.getExitTime().isAfter(LocalTime.parse("09:30:00")) && ticket.getExitTime().isBefore(LocalTime.parse("09:59:00"))) returnValue.setNineThirty(returnValue.getNineThirty() + 1);
-                if (ticket.getExitTime().isAfter(LocalTime.parse("10:00:00")) && ticket.getExitTime().isBefore(LocalTime.parse("10:29:00"))) returnValue.setTen(returnValue.getTen() + 1);
-                if (ticket.getExitTime().isAfter(LocalTime.parse("10:30:00")) && ticket.getExitTime().isBefore(LocalTime.parse("10:59:00"))) returnValue.setTenThirty(returnValue.getTenThirty() + 1);
-                if (ticket.getExitTime().isAfter(LocalTime.parse("11:00:00")) && ticket.getExitTime().isBefore(LocalTime.parse("11:29:00"))) returnValue.setEleven(returnValue.getEleven() + 1);
-                if (ticket.getExitTime().isAfter(LocalTime.parse("11:30:00")) && ticket.getExitTime().isBefore(LocalTime.parse("11:59:00"))) returnValue.setElevenThirty(returnValue.getElevenThirty() + 1);
-                if (ticket.getExitTime().isAfter(LocalTime.parse("12:00:00")) && ticket.getExitTime().isBefore(LocalTime.parse("12:29:00"))) returnValue.setTwelve(returnValue.getTwelve() + 1);
-                if (ticket.getExitTime().isAfter(LocalTime.parse("12:30:00")) && ticket.getExitTime().isBefore(LocalTime.parse("12:59:00"))) returnValue.setTwelveThirty(returnValue.getTwelveThirty() + 1);
-                if (ticket.getExitTime().isAfter(LocalTime.parse("13:00:00")) && ticket.getExitTime().isBefore(LocalTime.parse("13:29:00"))) returnValue.setThirteen(returnValue.getThirteen() + 1);
-                if (ticket.getExitTime().isAfter(LocalTime.parse("13:30:00")) && ticket.getExitTime().isBefore(LocalTime.parse("13:59:00"))) returnValue.setThirteenThirty(returnValue.getThirteenThirty() + 1);
-                if (ticket.getExitTime().isAfter(LocalTime.parse("14:00:00")) && ticket.getExitTime().isBefore(LocalTime.parse("14:29:00"))) returnValue.setFourteen(returnValue.getFourteen() + 1);
-                if (ticket.getExitTime().isAfter(LocalTime.parse("14:30:00")) && ticket.getExitTime().isBefore(LocalTime.parse("14:59:00"))) returnValue.setFourteenThirty(returnValue.getFourteenThirty() + 1);
-                if (ticket.getExitTime().isAfter(LocalTime.parse("15:00:00")) && ticket.getExitTime().isBefore(LocalTime.parse("15:29:00"))) returnValue.setFifteen(returnValue.getFifteen() + 1);
-            }
+            if (ticket.getExitTime().isAfter(LocalTime.parse("09:00:00")) && ticket.getExitTime().isBefore(LocalTime.parse("09:29:00"))) returnValue.setNine(returnValue.getNine() + 1);
+            if (ticket.getExitTime().isAfter(LocalTime.parse("09:30:00")) && ticket.getExitTime().isBefore(LocalTime.parse("09:59:00"))) returnValue.setNineThirty(returnValue.getNineThirty() + 1);
+            if (ticket.getExitTime().isAfter(LocalTime.parse("10:00:00")) && ticket.getExitTime().isBefore(LocalTime.parse("10:29:00"))) returnValue.setTen(returnValue.getTen() + 1);
+            if (ticket.getExitTime().isAfter(LocalTime.parse("10:30:00")) && ticket.getExitTime().isBefore(LocalTime.parse("10:59:00"))) returnValue.setTenThirty(returnValue.getTenThirty() + 1);
+            if (ticket.getExitTime().isAfter(LocalTime.parse("11:00:00")) && ticket.getExitTime().isBefore(LocalTime.parse("11:29:00"))) returnValue.setEleven(returnValue.getEleven() + 1);
+            if (ticket.getExitTime().isAfter(LocalTime.parse("11:30:00")) && ticket.getExitTime().isBefore(LocalTime.parse("11:59:00"))) returnValue.setElevenThirty(returnValue.getElevenThirty() + 1);
+            if (ticket.getExitTime().isAfter(LocalTime.parse("12:00:00")) && ticket.getExitTime().isBefore(LocalTime.parse("12:29:00"))) returnValue.setTwelve(returnValue.getTwelve() + 1);
+            if (ticket.getExitTime().isAfter(LocalTime.parse("12:30:00")) && ticket.getExitTime().isBefore(LocalTime.parse("12:59:00"))) returnValue.setTwelveThirty(returnValue.getTwelveThirty() + 1);
+            if (ticket.getExitTime().isAfter(LocalTime.parse("13:00:00")) && ticket.getExitTime().isBefore(LocalTime.parse("13:29:00"))) returnValue.setThirteen(returnValue.getThirteen() + 1);
+            if (ticket.getExitTime().isAfter(LocalTime.parse("13:30:00")) && ticket.getExitTime().isBefore(LocalTime.parse("13:59:00"))) returnValue.setThirteenThirty(returnValue.getThirteenThirty() + 1);
+            if (ticket.getExitTime().isAfter(LocalTime.parse("14:00:00")) && ticket.getExitTime().isBefore(LocalTime.parse("14:29:00"))) returnValue.setFourteen(returnValue.getFourteen() + 1);
+            if (ticket.getExitTime().isAfter(LocalTime.parse("14:30:00")) && ticket.getExitTime().isBefore(LocalTime.parse("14:59:00"))) returnValue.setFourteenThirty(returnValue.getFourteenThirty() + 1);
+            if (ticket.getExitTime().isAfter(LocalTime.parse("15:00:00")) && ticket.getExitTime().isBefore(LocalTime.parse("15:29:00"))) returnValue.setFifteen(returnValue.getFifteen() + 1);
         }
 
         returnValue.setTimeMap(setTimeMap(returnValue));
@@ -195,12 +185,12 @@ public class ReportServiceImpl implements ReportService {
     public ReportDto getLostTicketCount(int month, int day) {
         ReportDto returnValue = new ReportDto();
 
-        List<TicketEntity> tickets = ticketDao.getAllTickets();
+        List<TicketEntity> tickets = ticketDao.getAllTicketsByDay(month, day);
 
         int lostTicketCount = 0;
 
         for (TicketEntity ticket: tickets) {
-            if (ticket.getTicketDate().getMonth().getValue() == month && ticket.getTicketDate().getDayOfMonth() == day && ticket.isTicketLost()) {
+            if (ticket.isTicketLost()) {
                 lostTicketCount++;
             }
         }
@@ -220,14 +210,12 @@ public class ReportServiceImpl implements ReportService {
     public ReportDto getAmountDueMode(int month, int day) {
         ReportDto returnValue = new ReportDto();
 
-        List<TicketEntity> tickets = ticketDao.getAllTickets();
+        List<TicketEntity> tickets = ticketDao.getAllTicketsByDay(month, day);
 
         List<Integer> values = new ArrayList<>();
 
         for (TicketEntity ticket: tickets) {
-            if (ticket.getTicketDate().getMonth().getValue() == month && ticket.getTicketDate().getDayOfMonth() == day) {
-                values.add(ticket.getAmountDue());
-            }
+            values.add(ticket.getAmountDue());
         }
 
         returnValue.setMode(mode(values));

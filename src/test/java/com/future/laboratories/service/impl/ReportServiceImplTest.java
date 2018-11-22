@@ -16,6 +16,8 @@ import java.time.LocalTime;
 import java.util.Arrays;
 
 import static org.junit.Assert.*;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyInt;
 import static org.mockito.Mockito.when;
 
 public class ReportServiceImplTest {
@@ -27,8 +29,6 @@ public class ReportServiceImplTest {
     TicketDaoImpl ticketDao;
 
     TicketEntity ticketEntity;
-
-    final int TICKET_ID = 1;
 
     @Before
     public void setUp() throws Exception {
@@ -44,9 +44,10 @@ public class ReportServiceImplTest {
 
     @Test
     public void testGetReportByMonth() {
-        when(ticketDao.getAllTickets()).thenReturn(Arrays.asList(ticketEntity));
+        when(ticketDao.getAllTicketsByMonth(anyInt())).thenReturn(Arrays.asList(ticketEntity));
 
         ReportDto reportDto = reportService.getReportByMonth(11);
+        System.out.println(reportDto.toString());
 
         assertNotNull(reportDto);
         assertEquals(20, reportDto.getRevenue());
@@ -54,7 +55,7 @@ public class ReportServiceImplTest {
 
     @Test
     public void testGetReportByDay() {
-        when(ticketDao.getAllTickets()).thenReturn(Arrays.asList(ticketEntity));
+        when(ticketDao.getAllTicketsByDay(anyInt(), anyInt())).thenReturn(Arrays.asList(ticketEntity));
 
         ReportDto reportDto = reportService.getReportByDay(11, 12);
 
