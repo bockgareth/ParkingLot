@@ -38,7 +38,8 @@ Time	 |   Fee
 30-60min |   R20
 1hr-2hr	 |   R30
 2hr-4hr	 |   R50
-LOST	 |   R100
+4hr+     |   R100
+LOST	 |   R150
 ```
 Architecture of the application
 
