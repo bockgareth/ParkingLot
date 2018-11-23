@@ -24,6 +24,13 @@ localhost:8080/tickets
 ```
 
 ## Usage
+
+Currently has test data for the following 3 days.
+
+- November 12   -   11/12
+- November 13   -   11/13
+- November 14   -   11/14
+    
 ### Revenue generated for the month.
 
 **Definition**
@@ -39,7 +46,7 @@ localhost:8080/tickets
 [
     {
         "month": 11,
-        "revenue": 15000
+        "revenue": 1430
     }
 ]
 ```
@@ -60,7 +67,7 @@ localhost:8080/tickets
    {
        "day": 12,
        "month": 11,
-       "revenue": 950
+       "revenue": 410
    }
 ]
 ```
@@ -80,7 +87,7 @@ localhost:8080/tickets
 [
     {
         "week": 46,
-        "revenue": 1260
+        "revenue": 1430
     }
 ]
 ```
@@ -169,9 +176,9 @@ localhost:8080/tickets
 ```json
 [
     {
-        "month": 11,
         "day": 12,
-        "mode": 30
+        "month": 11,
+        "mode": 50
     }
 ]
 ```
@@ -194,13 +201,14 @@ Will return 0 if there are multiple modes.
 [
     {
         "month": 11,
-        "day": 12,
-        "lost": 5
+        "lost": 2,
+        "day": 12
     }
 ]
 ```
 
 ### Number of the parking lot ran out of space for the day.
+**(Unsupported/Stub implemented)**
 
 **Definition**
 
@@ -216,7 +224,7 @@ Will return 0 if there are multiple modes.
     {
         "month": 11,
         "day": 12,
-        "noSpaceCount": 20
+        "noSpaceCount": 0
     }
 ]
 ```
@@ -237,11 +245,11 @@ Will return 0 if there are multiple modes.
 ```json
 [
     {
-        "amountDue": 100,
-        "enterTime": "10:30:00",
-        "exitTime": "16:30:00",
-        "ticketDate": "2018-11-14",
-        "ticketId": 1,
+        "amountDue": 50,
+        "enterTime": "09:11:00",
+        "exitTime": "11:20:00",
+        "id": 1,
+        "ticketDate": "2018-11-12",
         "ticketLost": false
     }
 ]
@@ -262,19 +270,19 @@ amountDue, exitTime, and ticketLost will be nulled out until the ticket is close
 ```json
 [
     {
-        "amountDue": 100,
-        "enterTime": "10:30:00",
-        "exitTime": "16:30:00",
-        "ticketDate": "2018-11-14",
-        "ticketId": 1,
+        "amountDue": 50,
+        "enterTime": "09:11:00",
+        "exitTime": "11:20:00",
+        "id": 1,
+        "ticketDate": "2018-11-12",
         "ticketLost": false
     },
     {
-        "amountDue": 20,
-        "enterTime": "10:30:00",
-        "exitTime": "11:30:00",
-        "ticketDate": "2018-11-14",
-        "ticketId": 2,
+        "amountDue": 50,
+        "enterTime": "09:25:00",
+        "exitTime": "12:15:00",
+        "id": 2,
+        "ticketDate": "2018-11-12",
         "ticketLost": false
     }
 ]
@@ -295,7 +303,7 @@ amountDue, exitTime, and ticketLost will be nulled out until the ticket is close
 [
     {
         "enterTime": "13:00:00",
-        "ticketDate": "2018-11-14"
+        "ticketDate": "2018-11-12"
     }
 ]
 ```
@@ -311,7 +319,7 @@ amountDue, exitTime, and ticketLost will be nulled out until the ticket is close
 ```json
 [
     {
-        "ticketDate": "2018-11-14",
+        "ticketDate": "2018-11-12",
         "exitTime": "14:00:00",
         "ticketLost": false
     }
@@ -329,8 +337,8 @@ amountDue, exitTime, and ticketLost will be nulled out until the ticket is close
          "amountDue": 20,
          "enterTime": "13:00:00",
          "exitTime": "14:00:00",
-         "ticketDate": "2018-11-14",
-         "ticketId": 3,
+         "ticketDate": "2018-11-12",
+         "ticketId": 26,
          "ticketLost": false
     }
 ]
