@@ -14,10 +14,12 @@ public class FeeStructureImpl implements FeeStructure {
 
     private List<Fee> boundaries;
     private int lostFee;
+    private int lastFee;
 
     public FeeStructureImpl(int lostFee, List<Fee> fees) {
         this.lostFee = lostFee;
         this.boundaries = fees;
+        this.lastFee = fees.get(fees.size() -1).getAmountDue();
     }
 
     /**
@@ -52,5 +54,14 @@ public class FeeStructureImpl implements FeeStructure {
 
     public void setLostFee(int lostFee) {
         this.lostFee = lostFee;
+    }
+
+
+    public int getLastFee() {
+        return lastFee;
+    }
+
+    public void setLastFee(int lastFee) {
+        this.lastFee = lastFee;
     }
 }
