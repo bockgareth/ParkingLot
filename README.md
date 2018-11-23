@@ -23,14 +23,28 @@ Navigate to
 localhost:8080/tickets
 ```
 
-## Usage
 
 Currently has test data for the following 3 days.
 
 - November 12   -   11/12
 - November 13   -   11/13
 - November 14   -   11/14
-    
+
+Default pricing scheme
+```
+Time	 |   Fee
+---------+-----
+0-30min	 |   R10
+30-60min |   R20
+1hr-2hr	 |   R30
+2hr-4hr	 |   R50
+LOST	 |   R100
+```
+Architecture of the application
+
+![alt text](images/application-diagram.png)
+
+## Usage
 ### Revenue generated for the month.
 
 **Definition**
