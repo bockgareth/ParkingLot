@@ -23,9 +23,9 @@ public class TicketDaoImpl implements TicketDao {
     private int noSpaceCount = 0;
 
     private final String GET_TICKET_BY_ID = "select id, ticket_date, ticket_enter_time, ticket_exit_time, is_ticket_lost, amount_due from ticket where id = ?";
-    private final String GET_ALL_TICKETS = "select id, ticket_date, ticket_enter_time, ticket_exit_time, is_ticket_lost, amount_due from ticket";
-    private final String GET_ALL_TICKETS_BY_MONTH = "select id, ticket_date, ticket_enter_time, ticket_exit_time, is_ticket_lost, amount_due from ticket where month(ticket_date) = ?";
-    private final String GET_ALL_TICKETS_BY_DAY = "select id, ticket_date, ticket_enter_time, ticket_exit_time, is_ticket_lost, amount_due from ticket where month(ticket_date) = ? and day(ticket_date) = ?";
+    private final String GET_ALL_TICKETS = "select id, ticket_date, ticket_enter_time, ticket_exit_time, is_ticket_lost, amount_due from ticket order by id desc";
+    private final String GET_ALL_TICKETS_BY_MONTH = "select id, ticket_date, ticket_enter_time, ticket_exit_time, is_ticket_lost, amount_due from ticket where month(ticket_date) = ?  order by id desc";
+    private final String GET_ALL_TICKETS_BY_DAY = "select id, ticket_date, ticket_enter_time, ticket_exit_time, is_ticket_lost, amount_due from ticket where month(ticket_date) = ? and day(ticket_date) = ?  order by id desc";
     private final String CREATE_TICKET = "insert into ticket (id, ticket_date, ticket_enter_time, ticket_exit_time) values (next value for id, ?, ?, ?)";
     private final String UPDATE_TICKET = "update ticket set ticket_exit_time = ?, is_ticket_lost = ?, amount_due = ? where id = ?";
 
