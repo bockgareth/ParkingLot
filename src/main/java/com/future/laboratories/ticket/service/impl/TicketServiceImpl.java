@@ -111,7 +111,7 @@ public class TicketServiceImpl implements TicketService {
         ticketEntity.setAmountDue(amountDue);
 
         if (ticket.getTicketDate().getDayOfYear() != ticketEntity.getTicketDate().getDayOfYear()) {
-            ticketEntity.setAmountDue(fees.getLostFee());
+            ticketEntity.setAmountDue(fees.getLastFee());
         }
 
         ticketDao.updateTicket(ticketEntity);
