@@ -44,6 +44,14 @@ Architecture of the application
 
 ![alt text](images/application-diagram.png)
 
+### System requirements
+    OS: Windows 10 64-bit
+    Processor: Intel Core i7 4770K, 3.40 Ghz or AMD Ryzen 5 1600, 3.20 Ghz
+    Memory: 16 GB RAM
+    Graphics: Nvidia GTX 1060 6GB or AMD Radeon RX 480, 8GB
+    DirectX: Version 12
+    Storage: 40 GB available space
+
 ## Usage
 ### Revenue generated for the month.
 
