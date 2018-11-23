@@ -85,9 +85,8 @@ public class TicketDaoImpl implements TicketDao {
             jdbcTemplate.update(CREATE_TICKET, new Object[] {ticket.getTicketDate(), ticket.getEnterTime(), ticket.getExitTime()});
             carsParkedCount++;
         } else {
-            noSpaceCount++;
-            System.out.println(noSpaceCount);
-            throw new IllegalArgumentException("Parking lot is currently full.");
+            this.noSpaceCount++;
+            throw new IllegalArgumentException("Parking lot is full. Close a ticket before creating a new one.");
         }
     }
 
@@ -97,13 +96,15 @@ public class TicketDaoImpl implements TicketDao {
      * @param ticket a {@link TicketEntity} to be mapped to sql and updated.
      */
     public void updateTicket(TicketEntity ticket) {
-        carsParkedCount--;
+        if (carsParkedCount > 0) {
+            carsParkedCount--;
+        }
         jdbcTemplate.update(UPDATE_TICKET, new Object[] {ticket.getExitTime(), ticket.isTicketLost(), ticket.getAmountDue(), ticket.getId()});
     }
 
 
     public int getNoSpaceCount() {
-        return noSpaceCount;
+        return this.noSpaceCount;
     }
 
     public void setNoSpaceCount(int noSpaceCount) {
