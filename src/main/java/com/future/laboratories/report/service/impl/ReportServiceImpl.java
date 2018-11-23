@@ -1,3 +1,5 @@
+/* COPYRIGHT © 2018 GARETH BOCK AND/OR ITS AFFILIATES. ALL RIGHTS RESERVED. */
+
 package com.future.laboratories.report.service.impl;
 
 import com.future.laboratories.ticket.entity.TicketEntity;

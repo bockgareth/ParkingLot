@@ -1,3 +1,5 @@
+/* COPYRIGHT © 2018 GARETH BOCK AND/OR ITS AFFILIATES. ALL RIGHTS RESERVED. */
+
 package com.future.laboratories.ticket.service.impl;
 
 import com.future.laboratories.domain.Fee;
